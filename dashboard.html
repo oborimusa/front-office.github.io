@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>4T Luxury Hotel · Front Desk Dashboard</title>
+    <title>4T Luxury Hotel · Front Desk System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
         /* ── Reset & Base ── */
@@ -16,13 +16,186 @@
 
         body {
             background: #f2ebe8;
-            padding: 24px;
             min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
         }
 
-        .dashboard-container {
+        /* ── LOGIN SCREEN ── */
+        #loginScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, #f2ebe8 0%, #e6dcd7 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+            padding: 20px;
+        }
+
+        #loginScreen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .login-card {
+            background: #ffffff;
+            border-radius: 40px;
+            padding: 48px 44px 40px;
+            max-width: 440px;
+            width: 100%;
+            box-shadow: 0 30px 60px rgba(40, 25, 20, 0.15);
+            border: 1px solid #f0e4df;
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-card .logo {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .login-card .logo i {
+            font-size: 42px;
+            color: #a67b6e;
+            background: #f5edea;
+            padding: 16px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+        }
+
+        .login-card .logo h2 {
+            font-size: 26px;
+            font-weight: 700;
+            color: #2d1e18;
+        }
+
+        .login-card .logo h2 span {
+            font-weight: 300;
+            color: #a67b6e;
+        }
+
+        .login-card .logo p {
+            color: #8a7166;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .login-form .form-group {
+            margin-bottom: 18px;
+        }
+
+        .login-form .form-group label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #5a4036;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .login-form .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1.5px solid #ede5e1;
+            border-radius: 14px;
+            font-size: 14px;
+            color: #2d1e18;
+            background: #fcf9f8;
+            transition: 0.2s;
+            outline: none;
+        }
+
+        .login-form .form-group input:focus {
+            border-color: #a67b6e;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(166, 123, 110, 0.12);
+        }
+
+        .login-form .form-group .input-icon-wrapper {
+            position: relative;
+        }
+
+        .login-form .form-group .input-icon-wrapper i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #c9b3ab;
+            font-size: 16px;
+        }
+
+        .login-form .form-group .input-icon-wrapper input {
+            padding-left: 44px;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: #a67b6e;
+            color: #fff;
+            border: none;
+            border-radius: 40px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 6px;
+        }
+
+        .login-btn:hover {
+            background: #8f685a;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(166, 123, 110, 0.25);
+        }
+
+        .login-error {
+            color: #d45c4a;
+            font-size: 13px;
+            text-align: center;
+            margin-top: 12px;
+            min-height: 20px;
+            font-weight: 500;
+        }
+
+        /* ── DASHBOARD (hidden until login) ── */
+        #dashboardApp {
+            display: none;
+            width: 100%;
             max-width: 1440px;
             margin: 0 auto;
+            animation: fadeIn 0.5s ease;
+        }
+
+        #dashboardApp.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* ── Scrollbar ── */
@@ -133,6 +306,12 @@
             background: #f7f1ee;
             padding: 6px 18px 6px 14px;
             border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .header-right .staff-badge:hover {
+            background: #ede5e1;
         }
 
         .staff-badge i {
@@ -150,6 +329,26 @@
             font-weight: 300;
             color: #a67b6e;
             font-size: 13px;
+        }
+
+        .logout-btn {
+            background: #f7f1ee;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #5a4036;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logout-btn:hover {
+            background: #ede5e1;
+            color: #d45c4a;
         }
 
         .notification-btn {
@@ -183,7 +382,7 @@
         /* ── KPI Cards ── */
         .kpi-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
             gap: 20px;
             margin-bottom: 28px;
         }
@@ -191,7 +390,7 @@
         .kpi-card {
             background: #ffffff;
             border-radius: 24px;
-            padding: 22px 24px 20px;
+            padding: 20px 22px 18px;
             box-shadow: 0 4px 20px rgba(80, 50, 40, 0.06);
             border: 1px solid #f0e4df;
             transition: 0.2s;
@@ -206,21 +405,21 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
             color: #8a7166;
             text-transform: uppercase;
             letter-spacing: 0.4px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .kpi-label i {
-            font-size: 20px;
+            font-size: 18px;
             color: #c9b3ab;
         }
 
         .kpi-value {
-            font-size: 34px;
+            font-size: 30px;
             font-weight: 700;
             color: #2d1e18;
             letter-spacing: -0.5px;
@@ -228,9 +427,9 @@
         }
 
         .kpi-sub {
-            font-size: 14px;
+            font-size: 13px;
             color: #a67b6e;
-            margin-top: 6px;
+            margin-top: 4px;
             font-weight: 400;
         }
 
@@ -265,24 +464,38 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         .card-header h3 {
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 600;
             color: #2d1e18;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-header h3 i {
+            color: #a67b6e;
         }
 
         .card-header .card-action {
             font-size: 13px;
             font-weight: 500;
             color: #a67b6e;
-            cursor: default;
             background: #f7f1ee;
             padding: 4px 16px;
             border-radius: 40px;
             transition: 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .card-header .card-action:hover {
+            background: #ede5e1;
         }
 
         .card-header .card-action i {
@@ -367,11 +580,16 @@
             color: #b8685a;
         }
 
+        .status-badge.service {
+            background: #f5edea;
+            color: #a67b6e;
+        }
+
         /* ── Quick Actions ── */
         .quick-actions {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
             margin-top: 4px;
         }
 
@@ -379,14 +597,17 @@
             display: flex;
             align-items: center;
             gap: 16px;
-            padding: 16px 20px;
+            padding: 14px 18px;
             background: #f9f4f2;
             border-radius: 18px;
             border: 1px solid #f0e4df;
             transition: 0.2s;
-            cursor: default;
+            cursor: pointer;
             color: #3d2c26;
             text-decoration: none;
+            border: none;
+            width: 100%;
+            text-align: left;
         }
 
         .quick-action-btn:hover {
@@ -396,14 +617,14 @@
         }
 
         .quick-action-btn i {
-            width: 40px;
-            height: 40px;
+            width: 38px;
+            height: 38px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: #fff;
             border-radius: 14px;
-            font-size: 20px;
+            font-size: 18px;
             color: #a67b6e;
             box-shadow: 0 2px 8px rgba(80, 50, 40, 0.06);
         }
@@ -414,11 +635,11 @@
 
         .quick-action-btn .qa-content .qa-title {
             font-weight: 600;
-            font-size: 15px;
+            font-size: 14px;
         }
 
         .quick-action-btn .qa-content .qa-desc {
-            font-size: 13px;
+            font-size: 12px;
             color: #8a7166;
         }
 
@@ -431,29 +652,29 @@
         .room-status-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            gap: 8px;
             margin-top: 6px;
         }
 
         .room-status-item {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             background: #f9f4f2;
-            padding: 12px 16px;
-            border-radius: 16px;
+            padding: 10px 14px;
+            border-radius: 14px;
             border: 1px solid #f0e4df;
         }
 
         .room-status-item .room-num {
             font-weight: 700;
             color: #2d1e18;
-            font-size: 15px;
-            min-width: 40px;
+            font-size: 14px;
+            min-width: 36px;
         }
 
         .room-status-item .room-type {
-            font-size: 13px;
+            font-size: 12px;
             color: #7a5f55;
             flex: 1;
         }
@@ -488,8 +709,8 @@
         /* ── Today's timeline ── */
         .timeline-item {
             display: flex;
-            gap: 16px;
-            padding: 14px 0;
+            gap: 14px;
+            padding: 12px 0;
             border-bottom: 1px solid #f5edea;
         }
 
@@ -500,8 +721,8 @@
         .timeline-time {
             font-weight: 600;
             color: #7a5f55;
-            font-size: 14px;
-            min-width: 52px;
+            font-size: 13px;
+            min-width: 48px;
         }
 
         .timeline-content {
@@ -511,25 +732,482 @@
         .timeline-content .tl-title {
             font-weight: 600;
             color: #2d1e18;
-            font-size: 15px;
+            font-size: 14px;
         }
 
         .timeline-content .tl-desc {
-            font-size: 13px;
+            font-size: 12px;
             color: #8a7166;
         }
 
         .timeline-icon {
-            width: 36px;
-            height: 36px;
+            width: 34px;
+            height: 34px;
             background: #f7f1ee;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: #a67b6e;
-            font-size: 14px;
+            font-size: 13px;
             flex-shrink: 0;
+        }
+
+        /* ── MODAL ── */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(30, 20, 16, 0.55);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: #ffffff;
+            border-radius: 32px;
+            max-width: 820px;
+            width: 100%;
+            max-height: 92vh;
+            overflow-y: auto;
+            padding: 32px 36px 36px;
+            box-shadow: 0 30px 60px rgba(40, 25, 20, 0.25);
+            position: relative;
+        }
+
+        .modal::-webkit-scrollbar {
+            width: 4px;
+        }
+        .modal::-webkit-scrollbar-track {
+            background: #f5edea;
+            border-radius: 8px;
+        }
+        .modal::-webkit-scrollbar-thumb {
+            background: #c9b3ab;
+            border-radius: 8px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+            padding-bottom: 14px;
+            border-bottom: 2px solid #f0e4df;
+        }
+
+        .modal-header h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #2d1e18;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .modal-header h2 i {
+            color: #a67b6e;
+        }
+
+        .modal-close {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: none;
+            background: #f7f1ee;
+            color: #7a5f55;
+            font-size: 20px;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: #ede5e1;
+            transform: rotate(90deg);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px 24px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #5a4036;
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .form-group label .required {
+            color: #d45c4a;
+            font-weight: 700;
+        }
+
+        .form-group label i {
+            color: #a67b6e;
+            font-size: 13px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 10px 14px;
+            border: 1.5px solid #ede5e1;
+            border-radius: 14px;
+            font-size: 14px;
+            color: #2d1e18;
+            background: #fcf9f8;
+            transition: 0.2s;
+            outline: none;
+            width: 100%;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #a67b6e;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(166, 123, 110, 0.12);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #c9b3ab;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 50px;
+        }
+
+        .form-group .file-upload-wrapper {
+            position: relative;
+            border: 2px dashed #ede5e1;
+            border-radius: 14px;
+            padding: 12px 16px;
+            background: #fcf9f8;
+            transition: 0.2s;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .form-group .file-upload-wrapper:hover {
+            border-color: #a67b6e;
+            background: #f9f4f2;
+        }
+
+        .form-group .file-upload-wrapper input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .form-group .file-upload-wrapper .file-label {
+            font-size: 13px;
+            color: #8a7166;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .form-group .file-upload-wrapper .file-label i {
+            font-size: 22px;
+            color: #a67b6e;
+        }
+
+        .form-group .file-name {
+            font-size: 12px;
+            color: #5f9b8a;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .form-group .file-name.show {
+            display: block;
+        }
+
+        .form-group .validation-feedback {
+            font-size: 12px;
+            font-weight: 500;
+            margin-top: 2px;
+            min-height: 18px;
+        }
+
+        .form-group .validation-feedback.valid {
+            color: #4f7a7a;
+        }
+
+        .form-group .validation-feedback.invalid {
+            color: #d45c4a;
+        }
+
+        .guest-history-box {
+            background: #f9f4f2;
+            border-radius: 14px;
+            padding: 14px 18px;
+            border: 1px solid #f0e4df;
+            margin-top: 4px;
+            display: none;
+            grid-column: 1 / -1;
+        }
+
+        .guest-history-box.show {
+            display: block;
+        }
+
+        .guest-history-box .history-title {
+            font-weight: 600;
+            color: #3d2c26;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .guest-history-box .history-item {
+            font-size: 13px;
+            color: #7a5f55;
+            padding: 3px 0;
+            border-bottom: 1px solid #ede5e1;
+        }
+
+        .guest-history-box .history-item:last-child {
+            border-bottom: none;
+        }
+
+        .guest-history-box .history-item strong {
+            color: #2d1e18;
+        }
+
+        .form-actions {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 6px;
+            padding-top: 16px;
+            border-top: 2px solid #f0e4df;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 11px 30px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: #a67b6e;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #8f685a;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(166, 123, 110, 0.25);
+        }
+
+        .btn-secondary {
+            background: #f7f1ee;
+            color: #5a4036;
+        }
+
+        .btn-secondary:hover {
+            background: #ede5e1;
+        }
+
+        .btn-success {
+            background: #4f7a7a;
+            color: #fff;
+        }
+
+        .btn-success:hover {
+            background: #3d6363;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(79, 122, 122, 0.25);
+        }
+
+        .btn-danger {
+            background: #d45c4a;
+            color: #fff;
+        }
+
+        .btn-danger:hover {
+            background: #b84a3a;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 92, 74, 0.25);
+        }
+
+        .btn-warning {
+            background: #d4b04a;
+            color: #fff;
+        }
+
+        .btn-warning:hover {
+            background: #c09d3a;
+            transform: translateY(-2px);
+        }
+
+        /* ── Service Requests List ── */
+        .service-request-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 16px;
+            background: #f9f4f2;
+            border-radius: 16px;
+            border: 1px solid #f0e4df;
+            margin-bottom: 10px;
+            transition: 0.2s;
+        }
+
+        .service-request-item:hover {
+            background: #f3eae6;
+        }
+
+        .service-request-item .sr-icon {
+            width: 40px;
+            height: 40px;
+            background: #fff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #a67b6e;
+            font-size: 18px;
+        }
+
+        .service-request-item .sr-content {
+            flex: 1;
+        }
+
+        .service-request-item .sr-content .sr-title {
+            font-weight: 600;
+            color: #2d1e18;
+            font-size: 14px;
+        }
+
+        .service-request-item .sr-content .sr-desc {
+            font-size: 13px;
+            color: #8a7166;
+        }
+
+        .service-request-item .sr-status {
+            font-size: 12px;
+            font-weight: 500;
+            padding: 4px 14px;
+            border-radius: 40px;
+        }
+
+        .sr-status.pending {
+            background: #f5eee6;
+            color: #b58a5a;
+        }
+        .sr-status.in-progress {
+            background: #e8edf5;
+            color: #4f6a8a;
+        }
+        .sr-status.completed {
+            background: #e3f0ec;
+            color: #2d6b5e;
+        }
+
+        .sr-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .sr-actions button {
+            border: none;
+            background: #fff;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #7a5f55;
+        }
+
+        .sr-actions button:hover {
+            background: #ede5e1;
+        }
+
+        /* ── Toast notification ── */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #2d1e18;
+            color: #f5edea;
+            padding: 16px 28px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 12px 40px rgba(30, 20, 16, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transform: translateY(120px);
+            opacity: 0;
+            transition: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 2000;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast i {
+            font-size: 20px;
+        }
+
+        .toast.success i {
+            color: #7fc1b0;
+        }
+        .toast.error i {
+            color: #d45c4a;
+        }
+        .toast.info i {
+            color: #7fc1b0;
         }
 
         /* ── Responsive ── */
@@ -540,6 +1218,13 @@
             .bottom-grid {
                 grid-template-columns: 1fr;
             }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .modal {
+                padding: 24px 20px 28px;
+                max-height: 96vh;
+            }
         }
 
         @media (max-width: 640px) {
@@ -549,15 +1234,16 @@
             .header {
                 flex-direction: column;
                 align-items: stretch;
-                padding: 18px 20px;
+                padding: 16px 18px;
             }
             .header-center {
                 justify-content: center;
-                padding: 8px 16px;
+                padding: 8px 14px;
                 flex-wrap: wrap;
             }
             .header-right {
                 justify-content: center;
+                flex-wrap: wrap;
             }
             .kpi-grid {
                 grid-template-columns: 1fr 1fr;
@@ -566,10 +1252,23 @@
                 grid-template-columns: 1fr;
             }
             .card {
-                padding: 18px 16px 20px;
+                padding: 16px 14px 20px;
             }
             .kpi-value {
-                font-size: 28px;
+                font-size: 24px;
+            }
+            .modal {
+                padding: 18px 14px 22px;
+                border-radius: 24px;
+            }
+            .login-card {
+                padding: 32px 24px 28px;
+            }
+            .form-actions {
+                flex-direction: column;
+            }
+            .form-actions .btn {
+                justify-content: center;
             }
         }
 
@@ -579,7 +1278,6 @@
             }
         }
 
-        /* small extra polish */
         .text-muted {
             color: #b0978d;
         }
@@ -597,358 +1295,1401 @@
         .fw-400 {
             font-weight: 400;
         }
+        .empty-state {
+            text-align: center;
+            padding: 28px 16px;
+            color: #b8a59c;
+        }
+        .empty-state i {
+            font-size: 36px;
+            margin-bottom: 10px;
+            color: #c9b3ab;
+        }
+        .empty-state p {
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
-    <div class="dashboard-container">
 
-        <!-- ═══ HEADER ═══ -->
-        <header class="header">
-            <div class="header-left">
-                <div class="hotel-logo">
-                    <i class="fas fa-crown"></i>
-                    <h1>4T <span>Luxury</span></h1>
-                </div>
+    <!-- ═══ LOGIN SCREEN ═══ -->
+    <div id="loginScreen">
+        <div class="login-card">
+            <div class="logo">
+                <i class="fas fa-crown"></i>
+                <h2>4T <span>Luxury</span></h2>
+                <p>Front Desk Staff Login</p>
             </div>
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label>Username</label>
+                    <div class="input-icon-wrapper">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="loginUsername" placeholder="Enter username" value="staff" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <div class="input-icon-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="loginPassword" placeholder="Enter password" value="4T2025" required />
+                    </div>
+                </div>
+                <button type="submit" class="login-btn"><i class="fas fa-sign-in-alt"></i> Sign In</button>
+                <div class="login-error" id="loginError"></div>
+            </form>
+            <div style="text-align:center;margin-top:16px;font-size:12px;color:#b8a59c;">
+                <i class="fas fa-info-circle"></i> Demo: staff / 4T2025
+            </div>
+        </div>
+    </div>
 
-            <div class="header-center">
-                <i class="fas fa-calendar-alt"></i>
-                <span class="date-display" id="dateDisplay">Monday, 23 June 2026</span>
-                <span class="time-display" id="timeDisplay">14:32</span>
-            </div>
+    <!-- ═══ DASHBOARD APP ═══ -->
+    <div id="dashboardApp">
 
-            <div class="header-right">
-                <div class="staff-badge">
-                    <i class="fas fa-user-tie"></i>
-                    <span>Isabella <span class="role">· Front Desk</span></span>
-                </div>
-                <button class="notification-btn" aria-label="Notifications">
-                    <i class="fas fa-bell"></i>
-                    <span class="badge-dot"></span>
-                </button>
-            </div>
-        </header>
+        <div class="dashboard-container">
 
-        <!-- ═══ KPI ROW ═══ -->
-        <section class="kpi-grid">
-            <div class="kpi-card accent">
-                <div class="kpi-label">
-                    <span>Occupancy</span>
-                    <i class="fas fa-bed"></i>
+            <!-- ═══ HEADER ═══ -->
+            <header class="header">
+                <div class="header-left">
+                    <div class="hotel-logo">
+                        <i class="fas fa-crown"></i>
+                        <h1>4T <span>Luxury</span></h1>
+                    </div>
                 </div>
-                <div class="kpi-value">78%</div>
-                <div class="kpi-sub">142 of 182 rooms</div>
-            </div>
-            <div class="kpi-card accent2">
-                <div class="kpi-label">
-                    <span>Available</span>
-                    <i class="fas fa-door-open"></i>
-                </div>
-                <div class="kpi-value">40</div>
-                <div class="kpi-sub">rooms ready</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-label">
-                    <span>Check‑ins today</span>
-                    <i class="fas fa-sign-in-alt"></i>
-                </div>
-                <div class="kpi-value">26</div>
-                <div class="kpi-sub">8 pending</div>
-            </div>
-            <div class="kpi-card accent3">
-                <div class="kpi-label">
-                    <span>Check‑outs today</span>
-                    <i class="fas fa-sign-out-alt"></i>
-                </div>
-                <div class="kpi-value">19</div>
-                <div class="kpi-sub">11 completed</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-label">
-                    <span>Revenue (today)</span>
-                    <i class="fas fa-coin"></i>
-                </div>
-                <div class="kpi-value">$43.2k</div>
-                <div class="kpi-sub">+12% vs yesterday</div>
-            </div>
-        </section>
 
-        <!-- ═══ MAIN 2‑COL ═══ -->
-        <div class="main-grid">
-            <!-- ── Reservations ── -->
-            <section class="card">
-                <div class="card-header">
-                    <h3><i class="fas fa-list-ul" style="color:#a67b6e;margin-right:10px;"></i>Today's Reservations</h3>
-                    <span class="card-action"><i class="fas fa-chevron-right"></i> View all</span>
+                <div class="header-center">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span class="date-display" id="dateDisplay">Monday, 23 June 2026</span>
+                    <span class="time-display" id="timeDisplay">14:32</span>
                 </div>
-                <div class="reservation-table-wrap">
-                    <table class="reservation-table">
-                        <thead>
-                            <tr>
-                                <th>Guest</th>
-                                <th>Room</th>
-                                <th>Status</th>
-                                <th>Nights</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><span class="guest-name">Mr. Jonathan Pierce</span></td>
-                                <td><span class="guest-room">#1204</span> · Suite</td>
-                                <td><span class="status-badge checked-in">Checked in</span></td>
-                                <td>3</td>
-                            </tr>
-                            <tr>
-                                <td><span class="guest-name">Ms. Elena Rossi</span></td>
-                                <td><span class="guest-room">#0812</span> · Deluxe</td>
-                                <td><span class="status-badge confirmed">Confirmed</span></td>
-                                <td>2</td>
-                            </tr>
-                            <tr>
-                                <td><span class="guest-name">Dr. Amara Singh</span></td>
-                                <td><span class="guest-room">#0507</span> · Standard</td>
-                                <td><span class="status-badge pending">Pending</span></td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td><span class="guest-name">Mr. &amp; Mrs. Chen</span></td>
-                                <td><span class="guest-room">#1603</span> · Presidential</td>
-                                <td><span class="status-badge checked-in">Checked in</span></td>
-                                <td>5</td>
-                            </tr>
-                            <tr>
-                                <td><span class="guest-name">Ms. Sofia Koval</span></td>
-                                <td><span class="guest-room">#0915</span> · Deluxe</td>
-                                <td><span class="status-badge checked-out">Checked out</span></td>
-                                <td>2</td>
-                            </tr>
-                            <tr>
-                                <td><span class="guest-name">Mr. Liam O'Brien</span></td>
-                                <td><span class="guest-room">#0702</span> · Standard</td>
-                                <td><span class="status-badge confirmed">Confirmed</span></td>
-                                <td>4</td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+                <div class="header-right">
+                    <div class="staff-badge" id="staffBadge">
+                        <i class="fas fa-user-tie"></i>
+                        <span id="staffName">Isabella <span class="role">· Front Desk</span></span>
+                    </div>
+                    <button class="notification-btn" aria-label="Notifications" id="notificationBtn">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge-dot" id="serviceBadgeDot"></span>
+                    </button>
+                    <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                </div>
+            </header>
+
+            <!-- ═══ KPI ROW ═══ -->
+            <section class="kpi-grid">
+                <div class="kpi-card accent">
+                    <div class="kpi-label">
+                        <span>Occupancy</span>
+                        <i class="fas fa-bed"></i>
+                    </div>
+                    <div class="kpi-value" id="occupancyValue">78%</div>
+                    <div class="kpi-sub" id="occupancySub">142 of 182 rooms</div>
+                </div>
+                <div class="kpi-card accent2">
+                    <div class="kpi-label">
+                        <span>Available</span>
+                        <i class="fas fa-door-open"></i>
+                    </div>
+                    <div class="kpi-value" id="availableRooms">40</div>
+                    <div class="kpi-sub">rooms ready</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">
+                        <span>Check‑ins today</span>
+                        <i class="fas fa-sign-in-alt"></i>
+                    </div>
+                    <div class="kpi-value" id="checkinsToday">26</div>
+                    <div class="kpi-sub" id="checkinsSub">8 pending</div>
+                </div>
+                <div class="kpi-card accent3">
+                    <div class="kpi-label">
+                        <span>Check‑outs today</span>
+                        <i class="fas fa-sign-out-alt"></i>
+                    </div>
+                    <div class="kpi-value" id="checkoutsToday">19</div>
+                    <div class="kpi-sub" id="checkoutsSub">11 completed</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">
+                        <span>Revenue (today)</span>
+                        <i class="fas fa-coin"></i>
+                    </div>
+                    <div class="kpi-value" id="revenueToday">$43.2k</div>
+                    <div class="kpi-sub">+12% vs yesterday</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">
+                        <span>Service Requests</span>
+                        <i class="fas fa-concierge-bell"></i>
+                    </div>
+                    <div class="kpi-value" id="serviceCount">3</div>
+                    <div class="kpi-sub" id="serviceSub">2 pending</div>
                 </div>
             </section>
 
-            <!-- ── Quick Actions + Room Status ── -->
-            <aside>
-                <div class="card" style="margin-bottom:20px;">
+            <!-- ═══ MAIN 2‑COL ═══ -->
+            <div class="main-grid">
+                <!-- ── Reservations ── -->
+                <section class="card">
                     <div class="card-header">
-                        <h3><i class="fas fa-bolt" style="color:#a67b6e;margin-right:10px;"></i>Quick Actions</h3>
+                        <h3><i class="fas fa-list-ul"></i> Today's Reservations</h3>
+                        <span class="card-action"><i class="fas fa-chevron-right"></i> View all</span>
                     </div>
-                    <div class="quick-actions">
-                        <div class="quick-action-btn">
-                            <i class="fas fa-user-plus"></i>
-                            <div class="qa-content">
-                                <div class="qa-title">New Check‑in</div>
-                                <div class="qa-desc">Register arriving guest</div>
-                            </div>
-                            <span class="qa-arrow"><i class="fas fa-chevron-right"></i></span>
-                        </div>
-                        <div class="quick-action-btn">
-                            <i class="fas fa-user-minus"></i>
-                            <div class="qa-content">
-                                <div class="qa-title">Check‑out</div>
-                                <div class="qa-desc">Process departure</div>
-                            </div>
-                            <span class="qa-arrow"><i class="fas fa-chevron-right"></i></span>
-                        </div>
-                        <div class="quick-action-btn">
-                            <i class="fas fa-calendar-plus"></i>
-                            <div class="qa-content">
-                                <div class="qa-title">New Reservation</div>
-                                <div class="qa-desc">Book a room</div>
-                            </div>
-                            <span class="qa-arrow"><i class="fas fa-chevron-right"></i></span>
-                        </div>
-                        <div class="quick-action-btn">
-                            <i class="fas fa-concierge-bell"></i>
-                            <div class="qa-content">
-                                <div class="qa-title">Guest Request</div>
-                                <div class="qa-desc">View service requests</div>
-                            </div>
-                            <span class="qa-arrow"><i class="fas fa-chevron-right"></i></span>
-                        </div>
+                    <div class="reservation-table-wrap">
+                        <table class="reservation-table" id="reservationTable">
+                            <thead>
+                                <tr>
+                                    <th>Guest</th>
+                                    <th>Room</th>
+                                    <th>Status</th>
+                                    <th>Nights</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reservationBody">
+                                <tr>
+                                    <td><span class="guest-name">Mr. Jonathan Pierce</span></td>
+                                    <td><span class="guest-room">#1204</span> · Suite</td>
+                                    <td><span class="status-badge checked-in">Checked in</span></td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="guest-name">Ms. Elena Rossi</span></td>
+                                    <td><span class="guest-room">#0812</span> · Deluxe</td>
+                                    <td><span class="status-badge confirmed">Confirmed</span></td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="guest-name">Dr. Amara Singh</span></td>
+                                    <td><span class="guest-room">#0507</span> · Standard</td>
+                                    <td><span class="status-badge pending">Pending</span></td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="guest-name">Mr. &amp; Mrs. Chen</span></td>
+                                    <td><span class="guest-room">#1603</span> · Presidential</td>
+                                    <td><span class="status-badge checked-in">Checked in</span></td>
+                                    <td>5</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="guest-name">Ms. Sofia Koval</span></td>
+                                    <td><span class="guest-room">#0915</span> · Deluxe</td>
+                                    <td><span class="status-badge checked-out">Checked out</span></td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="guest-name">Mr. Liam O'Brien</span></td>
+                                    <td><span class="guest-room">#0702</span> · Standard</td>
+                                    <td><span class="status-badge confirmed">Confirmed</span></td>
+                                    <td>4</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                </div>
+                </section>
 
-                <!-- Room Status -->
-                <div class="card">
+                <!-- ── Quick Actions + Room Status ── -->
+                <aside>
+                    <div class="card" style="margin-bottom:20px;">
+                        <div class="card-header">
+                            <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
+                        </div>
+                        <div class="quick-actions">
+                            <button class="quick-action-btn" id="openCheckinBtn">
+                                <i class="fas fa-user-plus"></i>
+                                <div class="qa-content">
+                                    <div class="qa-title">New Check‑in</div>
+                                    <div class="qa-desc">Register arriving guest</div>
+                                </div>
+                                <span class="qa-arrow"><i class="fas fa-chevron-right"></i></span>
+                            </button>
+                            <button class="quick-action-btn" id="openCheckoutBtn">
+                                <i class="fas fa-user-minus"></i>
+                                <div class="qa-content">
+                                    <div class="qa-title">Process Departure</div>
+                                    <div class="qa-desc">Check‑out guest</div>
+                                </div>
+                                <span class="qa-arrow"><i class="fas fa-chevron-right"></i></span>
+                            </button>
+                            <button class="quick-action-btn" id="openBookingBtn">
+                                <i class="fas fa-calendar-plus"></i>
+                                <div class="qa-content">
+                                    <div class="qa-title">Book a Room</div>
+                                    <div class="qa-desc">New reservation</div>
+                                </div>
+                                <span class="qa-arrow"><i class="fas fa-chevron-right"></i></span>
+                            </button>
+                            <button class="quick-action-btn" id="openServiceBtn">
+                                <i class="fas fa-concierge-bell"></i>
+                                <div class="qa-content">
+                                    <div class="qa-title">Service Requests</div>
+                                    <div class="qa-desc" id="serviceDesc">View &amp; manage requests</div>
+                                </div>
+                                <span class="qa-arrow"><i class="fas fa-chevron-right"></i></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Room Status -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-building"></i> Room Status</h3>
+                            <span class="card-action">6th floor</span>
+                        </div>
+                        <div class="room-status-grid">
+                            <div class="room-status-item">
+                                <span class="room-num">601</span>
+                                <span class="room-type">Presidential</span>
+                                <span class="room-dot occupied"></span>
+                            </div>
+                            <div class="room-status-item">
+                                <span class="room-num">602</span>
+                                <span class="room-type">Suite</span>
+                                <span class="room-dot available"></span>
+                            </div>
+                            <div class="room-status-item">
+                                <span class="room-num">603</span>
+                                <span class="room-type">Deluxe</span>
+                                <span class="room-dot cleaning"></span>
+                            </div>
+                            <div class="room-status-item">
+                                <span class="room-num">604</span>
+                                <span class="room-type">Standard</span>
+                                <span class="room-dot occupied"></span>
+                            </div>
+                            <div class="room-status-item">
+                                <span class="room-num">605</span>
+                                <span class="room-type">Deluxe</span>
+                                <span class="room-dot available"></span>
+                            </div>
+                            <div class="room-status-item">
+                                <span class="room-num">606</span>
+                                <span class="room-type">Suite</span>
+                                <span class="room-dot maintenance"></span>
+                            </div>
+                        </div>
+                        <div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:#7a5f55;border-top:1px solid #f0e4df;padding-top:12px;">
+                            <span><span class="room-dot available" style="display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:middle;margin-right:6px;"></span> Available</span>
+                            <span><span class="room-dot occupied" style="display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:middle;margin-right:6px;"></span> Occupied</span>
+                            <span><span class="room-dot cleaning" style="display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:middle;margin-right:6px;"></span> Cleaning</span>
+                            <span><span class="room-dot maintenance" style="display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:middle;margin-right:6px;"></span> Maintenance</span>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+
+            <!-- ═══ BOTTOM ROW ═══ -->
+            <div class="bottom-grid">
+                <!-- Today's Timeline -->
+                <section class="card">
                     <div class="card-header">
-                        <h3><i class="fas fa-building" style="color:#a67b6e;margin-right:10px;"></i>Room Status</h3>
-                        <span class="card-action">6th floor</span>
+                        <h3><i class="fas fa-clock"></i> Today's Timeline</h3>
+                        <span class="card-action">Live</span>
                     </div>
-                    <div class="room-status-grid">
-                        <div class="room-status-item">
-                            <span class="room-num">601</span>
-                            <span class="room-type">Presidential</span>
-                            <span class="room-dot occupied"></span>
+                    <div id="timelineContainer">
+                        <div class="timeline-item">
+                            <div class="timeline-icon"><i class="fas fa-user-check"></i></div>
+                            <div class="timeline-time">08:15</div>
+                            <div class="timeline-content">
+                                <div class="tl-title">Mr. Pierce checked in</div>
+                                <div class="tl-desc">Suite #1204 · 3 nights</div>
+                            </div>
                         </div>
-                        <div class="room-status-item">
-                            <span class="room-num">602</span>
-                            <span class="room-type">Suite</span>
-                            <span class="room-dot available"></span>
+                        <div class="timeline-item">
+                            <div class="timeline-icon"><i class="fas fa-user-minus"></i></div>
+                            <div class="timeline-time">09:30</div>
+                            <div class="timeline-content">
+                                <div class="tl-title">Ms. Koval checked out</div>
+                                <div class="tl-desc">Deluxe #0915 · 2 nights</div>
+                            </div>
                         </div>
-                        <div class="room-status-item">
-                            <span class="room-num">603</span>
-                            <span class="room-type">Deluxe</span>
-                            <span class="room-dot cleaning"></span>
+                        <div class="timeline-item">
+                            <div class="timeline-icon"><i class="fas fa-concierge-bell"></i></div>
+                            <div class="timeline-time">11:00</div>
+                            <div class="timeline-content">
+                                <div class="tl-title">Room service request</div>
+                                <div class="tl-desc">#0507 · breakfast for 2</div>
+                            </div>
                         </div>
-                        <div class="room-status-item">
-                            <span class="room-num">604</span>
-                            <span class="room-type">Standard</span>
-                            <span class="room-dot occupied"></span>
+                        <div class="timeline-item">
+                            <div class="timeline-icon"><i class="fas fa-calendar-plus"></i></div>
+                            <div class="timeline-time">13:45</div>
+                            <div class="timeline-content">
+                                <div class="tl-title">New booking</div>
+                                <div class="tl-desc">Dr. Singh · Standard #0507 · 1 night</div>
+                            </div>
                         </div>
-                        <div class="room-status-item">
-                            <span class="room-num">605</span>
-                            <span class="room-type">Deluxe</span>
-                            <span class="room-dot available"></span>
-                        </div>
-                        <div class="room-status-item">
-                            <span class="room-num">606</span>
-                            <span class="room-type">Suite</span>
-                            <span class="room-dot maintenance"></span>
+                        <div class="timeline-item">
+                            <div class="timeline-icon"><i class="fas fa-phone"></i></div>
+                            <div class="timeline-time">15:20</div>
+                            <div class="timeline-content">
+                                <div class="tl-title">Concierge call</div>
+                                <div class="tl-desc">Dinner reservation at "Aurora"</div>
+                            </div>
                         </div>
                     </div>
-                    <div style="margin-top:14px;display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:#7a5f55;border-top:1px solid #f0e4df;padding-top:14px;">
-                        <span><span class="room-dot available" style="display:inline-block;width:10px;height:10px;border-radius:50;vertical-align:middle;margin-right:6px;"></span> Available</span>
-                        <span><span class="room-dot occupied" style="display:inline-block;width:10px;height:10px;border-radius:50;vertical-align:middle;margin-right:6px;"></span> Occupied</span>
-                        <span><span class="room-dot cleaning" style="display:inline-block;width:10px;height:10px;border-radius:50;vertical-align:middle;margin-right:6px;"></span> Cleaning</span>
-                        <span><span class="room-dot maintenance" style="display:inline-block;width:10px;height:10px;border-radius:50;vertical-align:middle;margin-right:6px;"></span> Maintenance</span>
+                </section>
+
+                <!-- Quick Stats / Arrivals -->
+                <section class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-plane-arrival"></i> Expected Arrivals</h3>
+                        <span class="card-action">Next 4h</span>
                     </div>
-                </div>
-            </aside>
+                    <div id="arrivalsContainer">
+                        <div style="display:flex;align-items:center;gap:14px;padding:10px 14px;background:#f9f4f2;border-radius:14px;border:1px solid #f0e4df;margin-bottom:10px;">
+                            <div style="width:40px;height:40px;background:#ede5e1;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#7a5f55;font-weight:700;font-size:14px;">JW</div>
+                            <div style="flex:1;">
+                                <div style="font-weight:600;color:#2d1e18;font-size:14px;">Mr. James Whitfield</div>
+                                <div style="font-size:12px;color:#8a7166;">Suite #1002 · 4 nights</div>
+                            </div>
+                            <div style="font-size:12px;font-weight:500;color:#a67b6e;background:#fff;padding:4px 14px;border-radius:40px;">16:30</div>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:14px;padding:10px 14px;background:#f9f4f2;border-radius:14px;border:1px solid #f0e4df;margin-bottom:10px;">
+                            <div style="width:40px;height:40px;background:#ede5e1;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#7a5f55;font-weight:700;font-size:14px;">LM</div>
+                            <div style="flex:1;">
+                                <div style="font-weight:600;color:#2d1e18;font-size:14px;">Ms. Laura Moreau</div>
+                                <div style="font-size:12px;color:#8a7166;">Deluxe #0815 · 2 nights</div>
+                            </div>
+                            <div style="font-size:12px;font-weight:500;color:#a67b6e;background:#fff;padding:4px 14px;border-radius:40px;">17:10</div>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:14px;padding:10px 14px;background:#f9f4f2;border-radius:14px;border:1px solid #f0e4df;margin-bottom:10px;">
+                            <div style="width:40px;height:40px;background:#ede5e1;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#7a5f55;font-weight:700;font-size:14px;">RT</div>
+                            <div style="flex:1;">
+                                <div style="font-weight:600;color:#2d1e18;font-size:14px;">Mr. &amp; Mrs. Tanaka</div>
+                                <div style="font-size:12px;color:#8a7166;">Presidential #1601 · 7 nights</div>
+                            </div>
+                            <div style="font-size:12px;font-weight:500;color:#a67b6e;background:#fff;padding:4px 14px;border-radius:40px;">18:45</div>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:14px;padding:10px 14px;background:#f9f4f2;border-radius:14px;border:1px solid #f0e4df;">
+                            <div style="width:40px;height:40px;background:#ede5e1;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#7a5f55;font-weight:700;font-size:14px;">DG</div>
+                            <div style="flex:1;">
+                                <div style="font-weight:600;color:#2d1e18;font-size:14px;">Dr. David Grant</div>
+                                <div style="font-size:12px;color:#8a7166;">Standard #0703 · 1 night</div>
+                            </div>
+                            <div style="font-size:12px;font-weight:500;color:#a67b6e;background:#fff;padding:4px 14px;border-radius:40px;">19:20</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- ═══ FOOTER ═══ -->
+            <div style="margin-top:32px;text-align:center;font-size:13px;color:#b8a59c;border-top:1px solid #ede5e1;padding-top:22px;">
+                <i class="fas fa-crown" style="margin-right:6px;color:#c9b3ab;"></i>
+                4T Luxury Hotel · Front Desk System &mdash; v3.0
+                <span style="margin-left:12px;font-weight:300;">| Logged in as <span id="footerStaff">Isabella</span></span>
+            </div>
+
         </div>
+    </div>
 
-        <!-- ═══ BOTTOM ROW ═══ -->
-        <div class="bottom-grid">
-            <!-- Today's Timeline -->
-            <section class="card">
-                <div class="card-header">
-                    <h3><i class="fas fa-clock" style="color:#a67b6e;margin-right:10px;"></i>Today's Timeline</h3>
-                    <span class="card-action">Live</span>
+    <!-- ════════════════════════════════════════════ -->
+    <!-- ═══ MODAL: CHECK-IN ═══ -->
+    <!-- ════════════════════════════════════════════ -->
+    <div class="modal-overlay" id="checkinModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2><i class="fas fa-user-plus"></i> Guest Check‑in</h2>
+                <button class="modal-close" id="closeCheckinBtn"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="checkinForm" novalidate>
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label><span class="required">*</span> Full Name <i class="fas fa-user"></i></label>
+                        <input type="text" id="ciName" placeholder="e.g. Mr. John Doe" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Email <i class="fas fa-envelope"></i></label>
+                        <input type="email" id="ciEmail" placeholder="john@example.com" />
+                    </div>
+                    <div class="form-group">
+                        <label><span class="required">*</span> Phone <i class="fas fa-phone"></i></label>
+                        <input type="tel" id="ciPhone" placeholder="+1 234 567 8900" required />
+                    </div>
+                    <div class="form-group">
+                        <label><span class="required">*</span> ID Type <i class="fas fa-id-card"></i></label>
+                        <select id="ciIdType" required>
+                            <option value="">Select</option>
+                            <option value="passport">Passport</option>
+                            <option value="national_id">National ID</option>
+                            <option value="drivers_license">Driver's License</option>
+                            <option value="residence_permit">Residence Permit</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label><span class="required">*</span> ID Number <i class="fas fa-hashtag"></i></label>
+                        <input type="text" id="ciIdNumber" placeholder="Enter ID number" required />
+                        <div class="validation-feedback" id="ciIdValidation"></div>
+                    </div>
+                    <div class="form-group full-width">
+                        <label><span class="required">*</span> Upload ID <i class="fas fa-cloud-upload-alt"></i></label>
+                        <div class="file-upload-wrapper">
+                            <input type="file" id="ciIdUpload" accept=".jpg,.jpeg,.png,.pdf" required />
+                            <div class="file-label">
+                                <i class="fas fa-file-upload"></i>
+                                <span>Click or drag (JPG, PNG, PDF)</span>
+                            </div>
+                        </div>
+                        <div class="file-name" id="ciFileName"></div>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Address <i class="fas fa-home"></i></label>
+                        <input type="text" id="ciAddress" placeholder="Street, City, Country" />
+                    </div>
+                    <div class="form-group">
+                        <label><span class="required">*</span> Check‑in <i class="fas fa-calendar-check"></i></label>
+                        <input type="date" id="ciCheckinDate" required />
+                    </div>
+                    <div class="form-group">
+                        <label><span class="required">*</span> Check‑out <i class="fas fa-calendar-times"></i></label>
+                        <input type="date" id="ciCheckoutDate" required />
+                    </div>
+                    <div class="form-group">
+                        <label><span class="required">*</span> Room <i class="fas fa-door-open"></i></label>
+                        <select id="ciRoom" required>
+                            <option value="">Select room</option>
+                            <option value="601">#601 · Presidential · $980/night</option>
+                            <option value="602">#602 · Suite · $540/night</option>
+                            <option value="603">#603 · Deluxe · $380/night</option>
+                            <option value="604">#604 · Standard · $220/night</option>
+                            <option value="605">#605 · Deluxe · $380/night</option>
+                            <option value="606">#606 · Suite · $540/night</option>
+                            <option value="607">#607 · Standard · $220/night</option>
+                            <option value="608">#608 · Deluxe · $380/night</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label><span class="required">*</span> Guests <i class="fas fa-users"></i></label>
+                        <select id="ciGuests" required>
+                            <option value="1">1</option>
+                            <option value="2" selected>2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5+</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label><span class="required">*</span> Payment <i class="fas fa-credit-card"></i></label>
+                        <select id="ciPayment" required>
+                            <option value="">Select</option>
+                            <option value="credit">Credit Card</option>
+                            <option value="debit">Debit Card</option>
+                            <option value="cash">Cash</option>
+                            <option value="bank_transfer">Bank Transfer</option>
+                            <option value="company">Company Account</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Deposit <i class="fas fa-money-bill-wave"></i></label>
+                        <input type="number" id="ciDeposit" placeholder="0.00" step="0.01" min="0" />
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Special Requests <i class="fas fa-comment-dots"></i></label>
+                        <textarea id="ciRequests" placeholder="e.g. extra pillows, early check-in" rows="2"></textarea>
+                    </div>
+                    <div class="guest-history-box" id="ciHistoryBox">
+                        <div class="history-title"><i class="fas fa-history"></i> Previous Stay History</div>
+                        <div id="ciHistoryContent">
+                            <div class="history-item"><strong>Last visit:</strong> <span id="ciLastVisit">—</span></div>
+                            <div class="history-item"><strong>Total stays:</strong> <span id="ciTotalStays">—</span></div>
+                            <div class="history-item"><strong>Favorite room:</strong> <span id="ciFavRoom">—</span></div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" id="cancelCheckinBtn">Cancel</button>
+                        <button type="submit" class="btn btn-success"><i class="fas fa-check-circle"></i> Check In</button>
+                    </div>
                 </div>
-                <div>
-                    <div class="timeline-item">
-                        <div class="timeline-icon"><i class="fas fa-user-check"></i></div>
-                        <div class="timeline-time">08:15</div>
-                        <div class="timeline-content">
-                            <div class="tl-title">Mr. Pierce checked in</div>
-                            <div class="tl-desc">Suite #1204 · 3 nights</div>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-icon"><i class="fas fa-user-minus"></i></div>
-                        <div class="timeline-time">09:30</div>
-                        <div class="timeline-content">
-                            <div class="tl-title">Ms. Koval checked out</div>
-                            <div class="tl-desc">Deluxe #0915 · 2 nights</div>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-icon"><i class="fas fa-concierge-bell"></i></div>
-                        <div class="timeline-time">11:00</div>
-                        <div class="timeline-content">
-                            <div class="tl-title">Room service request</div>
-                            <div class="tl-desc">#0507 · breakfast for 2</div>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-icon"><i class="fas fa-calendar-plus"></i></div>
-                        <div class="timeline-time">13:45</div>
-                        <div class="timeline-content">
-                            <div class="tl-title">New booking</div>
-                            <div class="tl-desc">Dr. Singh · Standard #0507 · 1 night</div>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-icon"><i class="fas fa-phone"></i></div>
-                        <div class="timeline-time">15:20</div>
-                        <div class="timeline-content">
-                            <div class="tl-title">Concierge call</div>
-                            <div class="tl-desc">Dinner reservation at "Aurora"</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Quick Stats / Arrivals -->
-            <section class="card">
-                <div class="card-header">
-                    <h3><i class="fas fa-plane-arrival" style="color:#a67b6e;margin-right:10px;"></i>Expected Arrivals</h3>
-                    <span class="card-action">Next 4h</span>
-                </div>
-                <div style="display:flex;flex-direction:column;gap:14px;">
-                    <div style="display:flex;align-items:center;gap:16px;padding:12px 16px;background:#f9f4f2;border-radius:16px;border:1px solid #f0e4df;">
-                        <div style="width:44px;height:44px;background:#ede5e1;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#7a5f55;font-weight:700;font-size:15px;">JW</div>
-                        <div style="flex:1;">
-                            <div style="font-weight:600;color:#2d1e18;">Mr. James Whitfield</div>
-                            <div style="font-size:13px;color:#8a7166;">Suite #1002 · 4 nights</div>
-                        </div>
-                        <div style="font-size:13px;font-weight:500;color:#a67b6e;background:#fff;padding:4px 14px;border-radius:40px;">16:30</div>
-                    </div>
-                    <div style="display:flex;align-items:center;gap:16px;padding:12px 16px;background:#f9f4f2;border-radius:16px;border:1px solid #f0e4df;">
-                        <div style="width:44px;height:44px;background:#ede5e1;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#7a5f55;font-weight:700;font-size:15px;">LM</div>
-                        <div style="flex:1;">
-                            <div style="font-weight:600;color:#2d1e18;">Ms. Laura Moreau</div>
-                            <div style="font-size:13px;color:#8a7166;">Deluxe #0815 · 2 nights</div>
-                        </div>
-                        <div style="font-size:13px;font-weight:500;color:#a67b6e;background:#fff;padding:4px 14px;border-radius:40px;">17:10</div>
-                    </div>
-                    <div style="display:flex;align-items:center;gap:16px;padding:12px 16px;background:#f9f4f2;border-radius:16px;border:1px solid #f0e4df;">
-                        <div style="width:44px;height:44px;background:#ede5e1;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#7a5f55;font-weight:700;font-size:15px;">RT</div>
-                        <div style="flex:1;">
-                            <div style="font-weight:600;color:#2d1e18;">Mr. &amp; Mrs. Tanaka</div>
-                            <div style="font-size:13px;color:#8a7166;">Presidential #1601 · 7 nights</div>
-                        </div>
-                        <div style="font-size:13px;font-weight:500;color:#a67b6e;background:#fff;padding:4px 14px;border-radius:40px;">18:45</div>
-                    </div>
-                    <div style="display:flex;align-items:center;gap:16px;padding:12px 16px;background:#f9f4f2;border-radius:16px;border:1px solid #f0e4df;">
-                        <div style="width:44px;height:44px;background:#ede5e1;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#7a5f55;font-weight:700;font-size:15px;">DG</div>
-                        <div style="flex:1;">
-                            <div style="font-weight:600;color:#2d1e18;">Dr. David Grant</div>
-                            <div style="font-size:13px;color:#8a7166;">Standard #0703 · 1 night</div>
-                        </div>
-                        <div style="font-size:13px;font-weight:500;color:#a67b6e;background:#fff;padding:4px 14px;border-radius:40px;">19:20</div>
-                    </div>
-                </div>
-            </section>
+            </form>
         </div>
+    </div>
 
-        <!-- ═══ FOOTER (subtle) ═══ -->
-        <div style="margin-top:32px;text-align:center;font-size:13px;color:#b8a59c;border-top:1px solid #ede5e1;padding-top:22px;">
-            <i class="fas fa-crown" style="margin-right:6px;color:#c9b3ab;"></i>
-            4T Luxury Hotel · Front Desk Dashboard &mdash; v2.0
+    <!-- ════════════════════════════════════════════ -->
+    <!-- ═══ MODAL: CHECK-OUT ═══ -->
+    <!-- ════════════════════════════════════════════ -->
+    <div class="modal-overlay" id="checkoutModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2><i class="fas fa-user-minus"></i> Process Departure</h2>
+                <button class="modal-close" id="closeCheckoutBtn"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="checkoutForm" novalidate>
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label><span class="required">*</span> Guest Name <i class="fas fa-user"></i></label>
+                        <input type="text" id="coName" placeholder="Enter guest name to check out" required />
+                        <div style="font-size:12px;color:#8a7166;margin-top:4px;">Start typing to search active guests</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Room <i class="fas fa-door-open"></i></label>
+                        <input type="text" id="coRoom" placeholder="Room number" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label>Check‑in Date</label>
+                        <input type="text" id="coCheckinDate" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label>Nights Stayed</label>
+                        <input type="text" id="coNights" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label>Total Bill <i class="fas fa-dollar-sign"></i></label>
+                        <input type="text" id="coTotalBill" placeholder="$0.00" readonly />
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Payment Method <i class="fas fa-credit-card"></i></label>
+                        <select id="coPayment">
+                            <option value="credit">Credit Card</option>
+                            <option value="debit">Debit Card</option>
+                            <option value="cash">Cash</option>
+                            <option value="bank_transfer">Bank Transfer</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Feedback / Notes <i class="fas fa-comment"></i></label>
+                        <textarea id="coFeedback" placeholder="Any feedback from guest or special notes" rows="2"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" id="cancelCheckoutBtn">Cancel</button>
+                        <button type="submit" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i> Complete Check‑out</button>
+                    </div>
+                </div>
+            </form>
         </div>
+    </div>
 
+    <!-- ════════════════════════════════════════════ -->
+    <!-- ═══ MODAL: BOOK ROOM ═══ -->
+    <!-- ════════════════════════════════════════════ -->
+    <div class="modal-overlay" id="bookingModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2><i class="fas fa-calendar-plus"></i> Book a Room</h2>
+                <button class="modal-close" id="closeBookingBtn"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="bookingForm" novalidate>
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label><span class="required">*</span> Guest Name <i class="fas fa-user"></i></label>
+                        <input type="text" id="bkName" placeholder="Full name" required />
+                    </div>
+                    <div class="form-group">
+                        <label><span class="required">*</span> Email <i class="fas fa-envelope"></i></label>
+                        <input type="email" id="bkEmail" placeholder="guest@example.com" required />
+                    </div>
+                    <div class="form-group">
+                        <label><span class="required">*</span> Phone <i class="fas fa-phone"></i></label>
+                        <input type="tel" id="bkPhone" placeholder="+1 234 567 8900" required />
+                    </div>
+                    <div class="form-group">
+                        <label><span class="required">*</span> Check‑in <i class="fas fa-calendar-check"></i></label>
+                        <input type="date" id="bkCheckin" required />
+                    </div>
+                    <div class="form-group">
+                        <label><span class="required">*</span> Check‑out <i class="fas fa-calendar-times"></i></label>
+                        <input type="date" id="bkCheckout" required />
+                    </div>
+                    <div class="form-group">
+                        <label><span class="required">*</span> Room <i class="fas fa-door-open"></i></label>
+                        <select id="bkRoom" required>
+                            <option value="">Select room</option>
+                            <option value="601">#601 · Presidential · $980/night</option>
+                            <option value="602">#602 · Suite · $540/night</option>
+                            <option value="603">#603 · Deluxe · $380/night</option>
+                            <option value="604">#604 · Standard · $220/night</option>
+                            <option value="605">#605 · Deluxe · $380/night</option>
+                            <option value="606">#606 · Suite · $540/night</option>
+                            <option value="607">#607 · Standard · $220/night</option>
+                            <option value="608">#608 · Deluxe · $380/night</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label><span class="required">*</span> Guests <i class="fas fa-users"></i></label>
+                        <select id="bkGuests" required>
+                            <option value="1">1</option>
+                            <option value="2" selected>2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5+</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Special Requests <i class="fas fa-comment-dots"></i></label>
+                        <textarea id="bkRequests" placeholder="Any special requirements" rows="2"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" id="cancelBookingBtn">Cancel</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-check-circle"></i> Create Booking</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════ -->
+    <!-- ═══ MODAL: SERVICE REQUESTS ═══ -->
+    <!-- ════════════════════════════════════════════ -->
+    <div class="modal-overlay" id="serviceModal">
+        <div class="modal" style="max-width:700px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-concierge-bell"></i> Service Requests</h2>
+                <button class="modal-close" id="closeServiceBtn"><i class="fas fa-times"></i></button>
+            </div>
+            <div style="margin-bottom:16px;display:flex;gap:12px;flex-wrap:wrap;">
+                <button class="btn btn-secondary" id="addServiceBtn" style="padding:8px 20px;font-size:13px;"><i class="fas fa-plus"></i> New Request</button>
+            </div>
+            <div id="serviceList">
+                <!-- Rendered by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════ -->
+    <!-- ═══ MODAL: ADD SERVICE REQUEST ═══ -->
+    <!-- ════════════════════════════════════════════ -->
+    <div class="modal-overlay" id="addServiceModal">
+        <div class="modal" style="max-width:520px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-plus-circle"></i> New Service Request</h2>
+                <button class="modal-close" id="closeAddServiceBtn"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="addServiceForm">
+                <div class="form-grid" style="grid-template-columns:1fr;">
+                    <div class="form-group full-width">
+                        <label><span class="required">*</span> Guest Name <i class="fas fa-user"></i></label>
+                        <input type="text" id="srGuestName" placeholder="Guest name" required />
+                    </div>
+                    <div class="form-group full-width">
+                        <label><span class="required">*</span> Room <i class="fas fa-door-open"></i></label>
+                        <input type="text" id="srRoom" placeholder="Room number" required />
+                    </div>
+                    <div class="form-group full-width">
+                        <label><span class="required">*</span> Request Type <i class="fas fa-tag"></i></label>
+                        <select id="srType" required>
+                            <option value="">Select type</option>
+                            <option value="room_service">Room Service</option>
+                            <option value="housekeeping">Housekeeping</option>
+                            <option value="maintenance">Maintenance</option>
+                            <option value="concierge">Concierge</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label><span class="required">*</span> Description <i class="fas fa-comment"></i></label>
+                        <textarea id="srDescription" placeholder="Describe the request" rows="3" required></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" id="cancelAddServiceBtn">Cancel</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Add Request</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ═══ TOAST ═══ -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Success!</span>
     </div>
 
     <script>
-        // ── Live Date & Time ──
+        // ─────────────────────────────────────────────────────────────
+        // 1. LOGIN SYSTEM
+        // ─────────────────────────────────────────────────────────────
+        const loginScreen = document.getElementById('loginScreen');
+        const dashboardApp = document.getElementById('dashboardApp');
+        const loginForm = document.getElementById('loginForm');
+        const loginError = document.getElementById('loginError');
+
+        // Hardcoded staff credentials
+        const STAFF_CREDENTIALS = {
+            'staff': '4T2025',
+            'reception': 'reception123',
+            'frontdesk': 'front4T'
+        };
+
+        let currentStaff = 'Isabella';
+
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+
+            if (!username || !password) {
+                loginError.textContent = 'Please enter both username and password.';
+                return;
+            }
+
+            // Check credentials
+            if (STAFF_CREDENTIALS[username] && STAFF_CREDENTIALS[username] === password) {
+                loginError.textContent = '';
+                // Set staff name
+                const names = {
+                    'staff': 'Isabella',
+                    'reception': 'Michael',
+                    'frontdesk': 'Sarah'
+                };
+                currentStaff = names[username] || username.charAt(0).toUpperCase() + username.slice(1);
+                document.getElementById('staffName').innerHTML =
+                    `${currentStaff} <span class="role">· Front Desk</span>`;
+                document.getElementById('footerStaff').textContent = currentStaff;
+
+                // Show dashboard
+                loginScreen.classList.add('hidden');
+                dashboardApp.classList.add('active');
+                showToast(`Welcome back, ${currentStaff}!`, 'success');
+
+                // Update service badge
+                updateServiceBadge();
+            } else {
+                loginError.textContent = 'Invalid username or password. Please try again.';
+                // Shake animation
+                loginForm.querySelector('.login-btn').style.animation = 'shake 0.4s ease';
+                setTimeout(() => {
+                    loginForm.querySelector('.login-btn').style.animation = '';
+                }, 400);
+            }
+        });
+
+        // Add shake keyframe
+        const styleSheet = document.createElement('style');
+        styleSheet.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                20% { transform: translateX(-8px); }
+                40% { transform: translateX(8px); }
+                60% { transform: translateX(-6px); }
+                80% { transform: translateX(6px); }
+            }
+        `;
+        document.head.appendChild(styleSheet);
+
+        // ── Logout ──
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            if (confirm('Are you sure you want to logout?')) {
+                dashboardApp.classList.remove('active');
+                loginScreen.classList.remove('hidden');
+                document.getElementById('loginUsername').value = 'staff';
+                document.getElementById('loginPassword').value = '4T2025';
+                loginError.textContent = '';
+                showToast('Logged out successfully.', 'info');
+            }
+        });
+
+        // ─────────────────────────────────────────────────────────────
+        // 2. LIVE CLOCK
+        // ─────────────────────────────────────────────────────────────
         function updateClock() {
             const now = new Date();
-            const optionsDate = {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            };
-            const dateStr = now.toLocaleDateString('en-US', optionsDate);
-            document.getElementById('dateDisplay').textContent = dateStr;
-
-            const timeStr = now.toLocaleTimeString('en-US', {
+            const optionsDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('dateDisplay').textContent = now.toLocaleDateString('en-US', optionsDate);
+            document.getElementById('timeDisplay').textContent = now.toLocaleTimeString('en-US', {
                 hour: '2-digit',
                 minute: '2-digit',
                 second: '2-digit'
             });
-            document.getElementById('timeDisplay').textContent = timeStr;
         }
-
         updateClock();
         setInterval(updateClock, 1000);
+
+        // ─────────────────────────────────────────────────────────────
+        // 3. TOAST SYSTEM
+        // ─────────────────────────────────────────────────────────────
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMessage');
+            const icon = toast.querySelector('i');
+
+            toastMsg.textContent = message;
+            icon.className = type === 'success' ? 'fas fa-check-circle' :
+                type === 'error' ? 'fas fa-exclamation-circle' :
+                'fas fa-info-circle';
+            toast.className = 'toast ' + type;
+
+            void toast.offsetWidth;
+            toast.classList.add('show');
+
+            clearTimeout(toast._timeout);
+            toast._timeout = setTimeout(() => toast.classList.remove('show'), 4000);
+        }
+
+        // ─────────────────────────────────────────────────────────────
+        // 4. MODAL HELPERS
+        // ─────────────────────────────────────────────────────────────
+        function openModal(modalId) {
+            const el = document.getElementById(modalId);
+            if (el) {
+                el.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal(modalId) {
+            const el = document.getElementById(modalId);
+            if (el) {
+                el.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // ─────────────────────────────────────────────────────────────
+        // 5. CHECK-IN MODAL
+        // ─────────────────────────────────────────────────────────────
+        document.getElementById('openCheckinBtn').addEventListener('click', () => openModal('checkinModal'));
+        document.getElementById('closeCheckinBtn').addEventListener('click', () => closeModal('checkinModal'));
+        document.getElementById('cancelCheckinBtn').addEventListener('click', () => closeModal('checkinModal'));
+
+        // Set default dates for check-in
+        (function setCheckinDefaults() {
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            const todayStr = `${yyyy}-${mm}-${dd}`;
+            document.getElementById('ciCheckinDate').value = todayStr;
+            const out = new Date(today);
+            out.setDate(out.getDate() + 3);
+            document.getElementById('ciCheckoutDate').value =
+                `${out.getFullYear()}-${String(out.getMonth()+1).padStart(2,'0')}-${String(out.getDate()).padStart(2,'0')}`;
+        })();
+
+        // ID validation for check-in
+        const ciIdInput = document.getElementById('ciIdNumber');
+        const ciIdType = document.getElementById('ciIdType');
+        const ciIdValidation = document.getElementById('ciIdValidation');
+
+        function validateCiId() {
+            const type = ciIdType.value;
+            const num = ciIdInput.value.trim();
+            if (!num) { ciIdValidation.textContent = '';
+                ciIdValidation.className = 'validation-feedback'; return; }
+            const result = validateIdNumber(type, num);
+            ciIdValidation.textContent = result.message;
+            ciIdValidation.className = 'validation-feedback ' + (result.valid ? 'valid' : 'invalid');
+            return result.valid;
+        }
+        ciIdInput.addEventListener('input', validateCiId);
+        ciIdType.addEventListener('change', validateCiId);
+
+        function validateIdNumber(type, number) {
+            const clean = number.trim().toUpperCase();
+            if (!clean) return { valid: false, message: 'ID number is required.' };
+            const patterns = {
+                passport: /^[A-Z]{2}[0-9]{7}$/,
+                national_id: /^[0-9]{6,12}$/,
+                drivers_license: /^[A-Z]{2}[0-9A-Z]{8,10}$/,
+                residence_permit: /^[A-Z0-9]{8,15}$/
+            };
+            const pattern = patterns[type] || /^[A-Z0-9]{6,15}$/;
+            if (pattern.test(clean)) return { valid: true, message: '✓ Valid format' };
+            const hints = {
+                passport: ' (e.g. AB1234567)',
+                national_id: ' (6-12 digits)',
+                drivers_license: ' (e.g. CA9A8B7C6D)',
+                residence_permit: ' (8-15 alphanumeric)'
+            };
+            return { valid: false, message: '✗ Invalid format' + (hints[type] || ' (6-15 alphanumeric)') };
+        }
+
+        // File upload display
+        document.getElementById('ciIdUpload').addEventListener('change', function() {
+            const file = this.files[0];
+            const display = document.getElementById('ciFileName');
+            if (file) {
+                display.textContent = `📎 ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+                display.className = 'file-name show';
+            } else {
+                display.textContent = '';
+                display.className = 'file-name';
+            }
+        });
+
+        // Guest history lookup for check-in
+        const guestHistoryDB = {
+            'john': { lastVisit: '2026-05-12', total: 3, favRoom: '#1204 (Suite)' },
+            'elena': { lastVisit: '2026-04-28', total: 2, favRoom: '#0812 (Deluxe)' },
+            'amara': { lastVisit: '2026-06-01', total: 1, favRoom: '#0507 (Standard)' },
+            'chen': { lastVisit: '2026-05-20', total: 5, favRoom: '#1603 (Presidential)' },
+            'sofia': { lastVisit: '2026-06-10', total: 4, favRoom: '#0915 (Deluxe)' },
+            'liam': { lastVisit: '2026-05-05', total: 2, favRoom: '#0702 (Standard)' },
+            'james': { lastVisit: '2026-05-30', total: 3, favRoom: '#1002 (Suite)' },
+            'laura': { lastVisit: '2026-06-15', total: 2, favRoom: '#0815 (Deluxe)' },
+            'tanaka': { lastVisit: '2026-04-10', total: 6, favRoom: '#1601 (Presidential)' },
+            'david': { lastVisit: '2026-05-25', total: 1, favRoom: '#0703 (Standard)' },
+        };
+
+        function lookupHistory(name) {
+            const key = name.toLowerCase().trim().split(' ')[0] || '';
+            for (const [dbKey, data] of Object.entries(guestHistoryDB)) {
+                if (key.includes(dbKey) || dbKey.includes(key)) return data;
+            }
+            return null;
+        }
+
+        const ciNameInput = document.getElementById('ciName');
+        const ciHistoryBox = document.getElementById('ciHistoryBox');
+        let ciHistoryTimeout = null;
+
+        ciNameInput.addEventListener('input', function() {
+            clearTimeout(ciHistoryTimeout);
+            const name = this.value.trim();
+            if (name.length < 2) { ciHistoryBox.classList.remove('show'); return; }
+            ciHistoryTimeout = setTimeout(() => {
+                const h = lookupHistory(name);
+                if (h) {
+                    document.getElementById('ciLastVisit').textContent = h.lastVisit || '—';
+                    document.getElementById('ciTotalStays').textContent = h.total || '—';
+                    document.getElementById('ciFavRoom').textContent = h.favRoom || '—';
+                    ciHistoryBox.classList.add('show');
+                } else {
+                    ciHistoryBox.classList.remove('show');
+                }
+            }, 400);
+        });
+
+        // Submit check-in
+        document.getElementById('checkinForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('ciName').value.trim();
+            const phone = document.getElementById('ciPhone').value.trim();
+            const idType = document.getElementById('ciIdType').value;
+            const idNum = document.getElementById('ciIdNumber').value.trim();
+            const idFile = document.getElementById('ciIdUpload').files[0];
+            const checkin = document.getElementById('ciCheckinDate').value;
+            const checkout = document.getElementById('ciCheckoutDate').value;
+            const room = document.getElementById('ciRoom').value;
+
+            if (!name) { showToast('Please enter guest name.', 'error'); return; }
+            if (!phone) { showToast('Please enter phone number.', 'error'); return; }
+            if (!idType) { showToast('Please select ID type.', 'error'); return; }
+            if (!idNum) { showToast('Please enter ID number.', 'error'); return; }
+            if (!validateCiId()) { showToast('Please enter a valid ID number.', 'error'); return; }
+            if (!idFile) { showToast('Please upload ID document.', 'error'); return; }
+            if (!checkin || !checkout) { showToast('Please select dates.', 'error'); return; }
+            if (new Date(checkout) <= new Date(checkin)) { showToast('Check-out must be after check-in.', 'error');
+                return; }
+            if (!room) { showToast('Please select a room.', 'error'); return; }
+
+            const roomLabel = document.querySelector(`#ciRoom option[value="${room}"]`)?.textContent || room;
+            const nights = Math.ceil((new Date(checkout) - new Date(checkin)) / (1000 * 60 * 60 * 24));
+
+            // Add to table
+            const tbody = document.getElementById('reservationBody');
+            const row = document.createElement('tr');
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+            row.innerHTML = `
+                <td><span class="guest-name">${name}</span></td>
+                <td><span class="guest-room">${roomLabel}</span></td>
+                <td><span class="status-badge checked-in">Checked in</span></td>
+                <td>${nights}</td>
+            `;
+            tbody.prepend(row);
+
+            // Update counters
+            const counter = document.getElementById('checkinsToday');
+            counter.textContent = parseInt(counter.textContent) + 1;
+
+            // Timeline
+            const timeline = document.getElementById('timelineContainer');
+            const item = document.createElement('div');
+            item.className = 'timeline-item';
+            item.innerHTML = `
+                <div class="timeline-icon"><i class="fas fa-user-check"></i></div>
+                <div class="timeline-time">${timeStr}</div>
+                <div class="timeline-content">
+                    <div class="tl-title">${name} checked in</div>
+                    <div class="tl-desc">${roomLabel} · ${nights} night${nights>1?'s':''}</div>
+                </div>
+            `;
+            timeline.prepend(item);
+
+            // Update occupancy
+            updateOccupancy();
+
+            showToast(`✅ ${name} checked in to ${roomLabel}!`, 'success');
+            setTimeout(() => closeModal('checkinModal'), 600);
+            this.reset();
+            document.getElementById('ciFileName').textContent = '';
+            document.getElementById('ciFileName').className = 'file-name';
+            ciHistoryBox.classList.remove('show');
+        });
+
+        // ─────────────────────────────────────────────────────────────
+        // 6. CHECK-OUT MODAL
+        // ─────────────────────────────────────────────────────────────
+        document.getElementById('openCheckoutBtn').addEventListener('click', () => openModal('checkoutModal'));
+        document.getElementById('closeCheckoutBtn').addEventListener('click', () => closeModal('checkoutModal'));
+        document.getElementById('cancelCheckoutBtn').addEventListener('click', () => closeModal('checkoutModal'));
+
+        // Guest search for check-out - find checked-in guests
+        const coNameInput = document.getElementById('coName');
+        let coGuests = [];
+
+        function getCheckedInGuests() {
+            const rows = document.querySelectorAll('#reservationBody tr');
+            const guests = [];
+            rows.forEach(row => {
+                const nameEl = row.querySelector('.guest-name');
+                const roomEl = row.querySelector('.guest-room');
+                const statusEl = row.querySelector('.status-badge');
+                if (nameEl && roomEl && statusEl && statusEl.textContent.trim() === 'Checked in') {
+                    guests.push({
+                        name: nameEl.textContent.trim(),
+                        room: roomEl.textContent.trim(),
+                        nights: row.querySelectorAll('td')[3]?.textContent.trim() || '?'
+                    });
+                }
+            });
+            return guests;
+        }
+
+        coNameInput.addEventListener('input', function() {
+            const val = this.value.trim().toLowerCase();
+            const checkedIn = getCheckedInGuests();
+            const match = checkedIn.find(g => g.name.toLowerCase().includes(val) || g.room.includes(val));
+            if (match && val.length > 1) {
+                document.getElementById('coRoom').value = match.room;
+                document.getElementById('coCheckinDate').value = '2026-06-21'; // demo
+                document.getElementById('coNights').value = match.nights;
+                const nights = parseInt(match.nights) || 2;
+                const bill = (nights * 220 + 45).toFixed(2);
+                document.getElementById('coTotalBill').value = `$${bill}`;
+            } else if (val.length === 0) {
+                document.getElementById('coRoom').value = '';
+                document.getElementById('coCheckinDate').value = '';
+                document.getElementById('coNights').value = '';
+                document.getElementById('coTotalBill').value = '';
+            }
+        });
+
+        // Submit check-out
+        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('coName').value.trim();
+            if (!name) { showToast('Please enter guest name.', 'error'); return; }
+
+            // Find and remove from table
+            const rows = document.querySelectorAll('#reservationBody tr');
+            let found = false;
+            rows.forEach(row => {
+                const nameEl = row.querySelector('.guest-name');
+                if (nameEl && nameEl.textContent.trim().toLowerCase() === name.toLowerCase()) {
+                    const statusEl = row.querySelector('.status-badge');
+                    if (statusEl && statusEl.textContent.trim() === 'Checked in') {
+                        statusEl.textContent = 'Checked out';
+                        statusEl.className = 'status-badge checked-out';
+                        found = true;
+                    }
+                }
+            });
+
+            if (!found) {
+                // Try partial match
+                const checkedIn = getCheckedInGuests();
+                const match = checkedIn.find(g => g.name.toLowerCase().includes(name.toLowerCase()));
+                if (match) {
+                    const rows2 = document.querySelectorAll('#reservationBody tr');
+                    rows2.forEach(row => {
+                        const nameEl = row.querySelector('.guest-name');
+                        if (nameEl && nameEl.textContent.trim() === match.name) {
+                            const statusEl = row.querySelector('.status-badge');
+                            if (statusEl && statusEl.textContent.trim() === 'Checked in') {
+                                statusEl.textContent = 'Checked out';
+                                statusEl.className = 'status-badge checked-out';
+                                found = true;
+                            }
+                        }
+                    });
+                }
+            }
+
+            if (found) {
+                // Update counters
+                const coCounter = document.getElementById('checkoutsToday');
+                coCounter.textContent = parseInt(coCounter.textContent) + 1;
+
+                // Timeline
+                const timeline = document.getElementById('timelineContainer');
+                const now = new Date();
+                const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+                const item = document.createElement('div');
+                item.className = 'timeline-item';
+                item.innerHTML = `
+                    <div class="timeline-icon"><i class="fas fa-user-minus"></i></div>
+                    <div class="timeline-time">${timeStr}</div>
+                    <div class="timeline-content">
+                        <div class="tl-title">${name} checked out</div>
+                        <div class="tl-desc">${document.getElementById('coRoom').value || 'Room'} · Departure processed</div>
+                    </div>
+                `;
+                timeline.prepend(item);
+
+                updateOccupancy();
+                showToast(`✅ ${name} checked out successfully.`, 'success');
+                setTimeout(() => closeModal('checkoutModal'), 500);
+                this.reset();
+                document.getElementById('coRoom').value = '';
+                document.getElementById('coCheckinDate').value = '';
+                document.getElementById('coNights').value = '';
+                document.getElementById('coTotalBill').value = '';
+            } else {
+                showToast(`❌ Guest "${name}" not found or already checked out.`, 'error');
+            }
+        });
+
+        // ─────────────────────────────────────────────────────────────
+        // 7. BOOK ROOM MODAL
+        // ─────────────────────────────────────────────────────────────
+        document.getElementById('openBookingBtn').addEventListener('click', () => openModal('bookingModal'));
+        document.getElementById('closeBookingBtn').addEventListener('click', () => closeModal('bookingModal'));
+        document.getElementById('cancelBookingBtn').addEventListener('click', () => closeModal('bookingModal'));
+
+        (function setBookingDefaults() {
+            const today = new Date();
+            const y = today.getFullYear(),
+                m = String(today.getMonth() + 1).padStart(2, '0'),
+                d = String(today.getDate()).padStart(2, '0');
+            document.getElementById('bkCheckin').value = `${y}-${m}-${d}`;
+            const out = new Date(today);
+            out.setDate(out.getDate() + 2);
+            document.getElementById('bkCheckout').value =
+                `${out.getFullYear()}-${String(out.getMonth()+1).padStart(2,'0')}-${String(out.getDate()).padStart(2,'0')}`;
+        })();
+
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('bkName').value.trim();
+            const email = document.getElementById('bkEmail').value.trim();
+            const phone = document.getElementById('bkPhone').value.trim();
+            const checkin = document.getElementById('bkCheckin').value;
+            const checkout = document.getElementById('bkCheckout').value;
+            const room = document.getElementById('bkRoom').value;
+
+            if (!name || !email || !phone || !checkin || !checkout || !room) {
+                showToast('Please fill in all required fields.', 'error');
+                return;
+            }
+            if (new Date(checkout) <= new Date(checkin)) {
+                showToast('Check-out must be after check-in.', 'error');
+                return;
+            }
+
+            const roomLabel = document.querySelector(`#bkRoom option[value="${room}"]`)?.textContent || room;
+            const nights = Math.ceil((new Date(checkout) - new Date(checkin)) / (1000 * 60 * 60 * 24));
+
+            // Add to table
+            const tbody = document.getElementById('reservationBody');
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td><span class="guest-name">${name}</span></td>
+                <td><span class="guest-room">${roomLabel}</span></td>
+                <td><span class="status-badge confirmed">Confirmed</span></td>
+                <td>${nights}</td>
+            `;
+            tbody.prepend(row);
+
+            // Timeline
+            const timeline = document.getElementById('timelineContainer');
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+            const item = document.createElement('div');
+            item.className = 'timeline-item';
+            item.innerHTML = `
+                <div class="timeline-icon"><i class="fas fa-calendar-plus"></i></div>
+                <div class="timeline-time">${timeStr}</div>
+                <div class="timeline-content">
+                    <div class="tl-title">New booking: ${name}</div>
+                    <div class="tl-desc">${roomLabel} · ${nights} night${nights>1?'s':''}</div>
+                </div>
+            `;
+            timeline.prepend(item);
+
+            showToast(`✅ Booking created for ${name} (${roomLabel})`, 'success');
+            setTimeout(() => closeModal('bookingModal'), 500);
+            this.reset();
+            // Reset dates
+            const today = new Date();
+            const y = today.getFullYear(),
+                m = String(today.getMonth() + 1).padStart(2, '0'),
+                d = String(today.getDate()).padStart(2, '0');
+            document.getElementById('bkCheckin').value = `${y}-${m}-${d}`;
+            const out = new Date(today);
+            out.setDate(out.getDate() + 2);
+            document.getElementById('bkCheckout').value =
+                `${out.getFullYear()}-${String(out.getMonth()+1).padStart(2,'0')}-${String(out.getDate()).padStart(2,'0')}`;
+        });
+
+        // ─────────────────────────────────────────────────────────────
+        // 8. SERVICE REQUESTS
+        // ─────────────────────────────────────────────────────────────
+        let serviceRequests = [
+            { id: 1, guest: 'Mr. Pierce', room: '#1204', type: 'room_service', desc: 'Breakfast for 2, 8:00 AM',
+                status: 'pending' },
+            { id: 2, guest: 'Ms. Rossi', room: '#0812', type: 'housekeeping', desc: 'Extra pillows and towels',
+                status: 'in-progress' },
+            { id: 3, guest: 'Dr. Singh', room: '#0507', type: 'maintenance', desc: 'AC not cooling properly',
+                status: 'pending' },
+        ];
+        let nextServiceId = 4;
+
+        function renderServices() {
+            const container = document.getElementById('serviceList');
+            if (serviceRequests.length === 0) {
+                container.innerHTML =
+                    `<div class="empty-state"><i class="fas fa-concierge-bell"></i><p>No service requests</p></div>`;
+                return;
+            }
+            container.innerHTML = serviceRequests.map(sr => `
+                <div class="service-request-item" data-id="${sr.id}">
+                    <div class="sr-icon"><i class="fas fa-${sr.type === 'room_service' ? 'utensils' : sr.type === 'housekeeping' ? 'broom' : sr.type === 'maintenance' ? 'wrench' : 'bell'}"></i></div>
+                    <div class="sr-content">
+                        <div class="sr-title">${sr.guest} · ${sr.room}</div>
+                        <div class="sr-desc">${sr.desc}</div>
+                    </div>
+                    <span class="sr-status ${sr.status}">${sr.status.replace('-',' ')}</span>
+                    <div class="sr-actions">
+                        ${sr.status === 'pending' ? `<button onclick="updateServiceStatus(${sr.id},'in-progress')" title="Start"><i class="fas fa-play"></i></button>` : ''}
+                        ${sr.status === 'in-progress' ? `<button onclick="updateServiceStatus(${sr.id},'completed')" title="Complete"><i class="fas fa-check"></i></button>` : ''}
+                        <button onclick="deleteService(${sr.id})" title="Remove"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                </div>
+            `).join('');
+            updateServiceBadge();
+        }
+
+        function updateServiceBadge() {
+            const pending = serviceRequests.filter(s => s.status === 'pending').length;
+            const dot = document.getElementById('serviceBadgeDot');
+            const count = document.getElementById('serviceCount');
+            const sub = document.getElementById('serviceSub');
+            if (pending > 0) {
+                dot.style.display = 'block';
+                document.getElementById('serviceDesc').textContent = `${pending} pending request${pending>1?'s':''}`;
+            } else {
+                dot.style.display = 'none';
+                document.getElementById('serviceDesc').textContent = 'No pending requests';
+            }
+            count.textContent = serviceRequests.length;
+            const inProg = serviceRequests.filter(s => s.status === 'in-progress').length;
+            sub.textContent = `${pending} pending, ${inProg} in progress`;
+        }
+
+        window.updateServiceStatus = function(id, status) {
+            const sr = serviceRequests.find(s => s.id === id);
+            if (sr) {
+                sr.status = status;
+                renderServices();
+                showToast(`Service request updated to ${status.replace('-',' ')}.`, 'info');
+            }
+        };
+
+        window.deleteService = function(id) {
+            if (confirm('Remove this service request?')) {
+                serviceRequests = serviceRequests.filter(s => s.id !== id);
+                renderServices();
+                showToast('Service request removed.', 'info');
+            }
+        };
+
+        // Open service modal
+        document.getElementById('openServiceBtn').addEventListener('click', () => {
+            renderServices();
+            openModal('serviceModal');
+        });
+        document.getElementById('closeServiceBtn').addEventListener('click', () => closeModal('serviceModal'));
+
+        // Add service request
+        document.getElementById('addServiceBtn').addEventListener('click', () => {
+            closeModal('serviceModal');
+            setTimeout(() => openModal('addServiceModal'), 300);
+        });
+        document.getElementById('closeAddServiceBtn').addEventListener('click', () => closeModal('addServiceModal'));
+        document.getElementById('cancelAddServiceBtn').addEventListener('click', () => closeModal('addServiceModal'));
+
+        document.getElementById('addServiceForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const guest = document.getElementById('srGuestName').value.trim();
+            const room = document.getElementById('srRoom').value.trim();
+            const type = document.getElementById('srType').value;
+            const desc = document.getElementById('srDescription').value.trim();
+
+            if (!guest || !room || !type || !desc) {
+                showToast('Please fill in all fields.', 'error');
+                return;
+            }
+
+            serviceRequests.push({
+                id: nextServiceId++,
+                guest,
+                room,
+                type,
+                desc,
+                status: 'pending'
+            });
+
+            renderServices();
+            showToast(`✅ Service request added for ${guest}`, 'success');
+            closeModal('addServiceModal');
+            this.reset();
+            // Reopen service modal
+            setTimeout(() => openModal('serviceModal'), 300);
+        });
+
+        // Notification bell shows service modal
+        document.getElementById('notificationBtn').addEventListener('click', () => {
+            renderServices();
+            openModal('serviceModal');
+        });
+
+        // ─────────────────────────────────────────────────────────────
+        // 9. UPDATE OCCUPANCY
+        // ─────────────────────────────────────────────────────────────
+        function updateOccupancy() {
+            const checkedIn = document.querySelectorAll('#reservationBody tr .status-badge.checked-in').length;
+            const totalRooms = 182;
+            const pct = Math.round((checkedIn / totalRooms) * 100);
+            document.getElementById('occupancyValue').textContent = pct + '%';
+            document.getElementById('occupancySub').textContent = `${checkedIn} of ${totalRooms} rooms`;
+            document.getElementById('availableRooms').textContent = totalRooms - checkedIn;
+        }
+
+        // ─────────────────────────────────────────────────────────────
+        // 10. CLICK OUTSIDE MODAL CLOSE
+        // ─────────────────────────────────────────────────────────────
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+
+        // ─────────────────────────────────────────────────────────────
+        // 11. ESC KEY CLOSE MODAL
+        // ─────────────────────────────────────────────────────────────
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay.active').forEach(m => {
+                    m.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            }
+        });
+
+        // ─────────────────────────────────────────────────────────────
+        // 12. INIT
+        // ─────────────────────────────────────────────────────────────
+        renderServices();
+        updateOccupancy();
+
+        console.log('🏨 4T Luxury Hotel · Front Desk System loaded');
+        console.log('👤 Staff: ' + currentStaff);
+        console.log('📋 Service requests: ' + serviceRequests.length);
     </script>
+
 </body>
 </html>
