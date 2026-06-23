@@ -98,5 +98,22 @@
             Contact administrator for login credentials
         </div>
     </div>
+    <script>
+        document.querySelector('form').addEventListener('submit', function(e) {
+    e.preventDefault(); // stop form from reloading
+
+    const username = document.querySelector('input[name="username"]').value;
+    const password = document.querySelector('input[name="password"]').value;
+
+    // Hardcoded credentials (for demo only – not secure for production)
+    if (username === 'admin' && password === '4T2025') {
+        alert('Login successful! Redirecting to dashboard...');
+        // window.location.href = '/dashboard.html';
+    } else {
+        alert('Invalid username or password. Please try again.');
+    }
+});
+    </script>
+        // Optional: Add JavaScript for form validation or interactivity if needed
 </body>
 </html>
