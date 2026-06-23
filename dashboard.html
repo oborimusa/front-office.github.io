@@ -57,14 +57,8 @@
         }
 
         @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .login-card .logo {
@@ -110,9 +104,22 @@
             margin-bottom: 5px;
         }
 
-        .login-form .form-group input {
+        .login-form .form-group .input-wrapper {
+            position: relative;
+        }
+
+        .login-form .form-group .input-wrapper i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #c9b3ab;
+            font-size: 16px;
+        }
+
+        .login-form .form-group .input-wrapper input {
             width: 100%;
-            padding: 12px 16px;
+            padding: 12px 16px 12px 44px;
             border: 1.5px solid #ede5e1;
             border-radius: 14px;
             font-size: 14px;
@@ -122,27 +129,10 @@
             outline: none;
         }
 
-        .login-form .form-group input:focus {
+        .login-form .form-group .input-wrapper input:focus {
             border-color: #a67b6e;
             background: #fff;
             box-shadow: 0 0 0 4px rgba(166, 123, 110, 0.12);
-        }
-
-        .login-form .form-group .input-icon-wrapper {
-            position: relative;
-        }
-
-        .login-form .form-group .input-icon-wrapper i {
-            position: absolute;
-            left: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #c9b3ab;
-            font-size: 16px;
-        }
-
-        .login-form .form-group .input-icon-wrapper input {
-            padding-left: 44px;
         }
 
         .login-btn {
@@ -174,7 +164,7 @@
             font-weight: 500;
         }
 
-        /* ── DASHBOARD (hidden until login) ── */
+        /* ── DASHBOARD ── */
         #dashboardApp {
             display: none;
             width: 100%;
@@ -188,32 +178,15 @@
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* ── Scrollbar ── */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #ede5e1;
-            border-radius: 8px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #c9b3ab;
-            border-radius: 8px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #b0978d;
-        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #ede5e1; border-radius: 8px; }
+        ::-webkit-scrollbar-thumb { background: #c9b3ab; border-radius: 8px; }
+        ::-webkit-scrollbar-thumb:hover { background: #b0978d; }
 
         /* ── Header ── */
         .header {
@@ -297,6 +270,7 @@
             display: flex;
             align-items: center;
             gap: 18px;
+            flex-wrap: wrap;
         }
 
         .header-right .staff-badge {
@@ -306,12 +280,6 @@
             background: #f7f1ee;
             padding: 6px 18px 6px 14px;
             border-radius: 40px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .header-right .staff-badge:hover {
-            background: #ede5e1;
         }
 
         .staff-badge i {
@@ -377,6 +345,7 @@
             background: #d45c4a;
             border-radius: 50%;
             border: 2px solid #fff;
+            display: none;
         }
 
         /* ── KPI Cards ── */
@@ -433,15 +402,9 @@
             font-weight: 400;
         }
 
-        .kpi-card.accent .kpi-value {
-            color: #b87a6a;
-        }
-        .kpi-card.accent2 .kpi-value {
-            color: #4f7a7a;
-        }
-        .kpi-card.accent3 .kpi-value {
-            color: #b58a5a;
-        }
+        .kpi-card.accent .kpi-value { color: #b87a6a; }
+        .kpi-card.accent2 .kpi-value { color: #4f7a7a; }
+        .kpi-card.accent3 .kpi-value { color: #b58a5a; }
 
         /* ── Main 2‑col layout ── */
         .main-grid {
@@ -498,11 +461,6 @@
             background: #ede5e1;
         }
 
-        .card-header .card-action i {
-            margin-right: 6px;
-            font-size: 12px;
-        }
-
         /* ── Reservation Table ── */
         .reservation-table-wrap {
             overflow-x: auto;
@@ -555,35 +513,11 @@
             letter-spacing: 0.2px;
         }
 
-        .status-badge.checked-in {
-            background: #e3f0ec;
-            color: #2d6b5e;
-        }
-
-        .status-badge.checked-out {
-            background: #f0e8e5;
-            color: #8a7166;
-        }
-
-        .status-badge.pending {
-            background: #f5eee6;
-            color: #b58a5a;
-        }
-
-        .status-badge.confirmed {
-            background: #e8edf5;
-            color: #4f6a8a;
-        }
-
-        .status-badge.cancelled {
-            background: #f5e8e6;
-            color: #b8685a;
-        }
-
-        .status-badge.service {
-            background: #f5edea;
-            color: #a67b6e;
-        }
+        .status-badge.checked-in { background: #e3f0ec; color: #2d6b5e; }
+        .status-badge.checked-out { background: #f0e8e5; color: #8a7166; }
+        .status-badge.pending { background: #f5eee6; color: #b58a5a; }
+        .status-badge.confirmed { background: #e8edf5; color: #4f6a8a; }
+        .status-badge.cancelled { background: #f5e8e6; color: #b8685a; }
 
         /* ── Quick Actions ── */
         .quick-actions {
@@ -604,7 +538,6 @@
             transition: 0.2s;
             cursor: pointer;
             color: #3d2c26;
-            text-decoration: none;
             border: none;
             width: 100%;
             text-align: left;
@@ -648,7 +581,7 @@
             font-size: 14px;
         }
 
-        /* ── Room Status mini ── */
+        /* ── Room Status ── */
         .room-status-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -686,18 +619,10 @@
             flex-shrink: 0;
         }
 
-        .room-dot.available {
-            background: #5f9b8a;
-        }
-        .room-dot.occupied {
-            background: #d45c4a;
-        }
-        .room-dot.cleaning {
-            background: #d4b04a;
-        }
-        .room-dot.maintenance {
-            background: #9a8a8a;
-        }
+        .room-dot.available { background: #5f9b8a; }
+        .room-dot.occupied { background: #d45c4a; }
+        .room-dot.cleaning { background: #d4b04a; }
+        .room-dot.maintenance { background: #9a8a8a; }
 
         /* ── Bottom row ── */
         .bottom-grid {
@@ -706,7 +631,7 @@
             gap: 28px;
         }
 
-        /* ── Today's timeline ── */
+        /* ── Timeline ── */
         .timeline-item {
             display: flex;
             gap: 14px;
@@ -786,17 +711,9 @@
             position: relative;
         }
 
-        .modal::-webkit-scrollbar {
-            width: 4px;
-        }
-        .modal::-webkit-scrollbar-track {
-            background: #f5edea;
-            border-radius: 8px;
-        }
-        .modal::-webkit-scrollbar-thumb {
-            background: #c9b3ab;
-            border-radius: 8px;
-        }
+        .modal::-webkit-scrollbar { width: 4px; }
+        .modal::-webkit-scrollbar-track { background: #f5edea; border-radius: 8px; }
+        .modal::-webkit-scrollbar-thumb { background: #c9b3ab; border-radius: 8px; }
 
         .modal-header {
             display: flex;
@@ -898,11 +815,6 @@
             box-shadow: 0 0 0 4px rgba(166, 123, 110, 0.12);
         }
 
-        .form-group input::placeholder,
-        .form-group textarea::placeholder {
-            color: #c9b3ab;
-        }
-
         .form-group textarea {
             resize: vertical;
             min-height: 50px;
@@ -969,7 +881,6 @@
         .form-group .validation-feedback.valid {
             color: #4f7a7a;
         }
-
         .form-group .validation-feedback.invalid {
             color: #d45c4a;
         }
@@ -1038,7 +949,6 @@
             background: #a67b6e;
             color: #fff;
         }
-
         .btn-primary:hover {
             background: #8f685a;
             transform: translateY(-2px);
@@ -1049,7 +959,6 @@
             background: #f7f1ee;
             color: #5a4036;
         }
-
         .btn-secondary:hover {
             background: #ede5e1;
         }
@@ -1058,7 +967,6 @@
             background: #4f7a7a;
             color: #fff;
         }
-
         .btn-success:hover {
             background: #3d6363;
             transform: translateY(-2px);
@@ -1069,24 +977,12 @@
             background: #d45c4a;
             color: #fff;
         }
-
         .btn-danger:hover {
             background: #b84a3a;
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(212, 92, 74, 0.25);
         }
 
-        .btn-warning {
-            background: #d4b04a;
-            color: #fff;
-        }
-
-        .btn-warning:hover {
-            background: #c09d3a;
-            transform: translateY(-2px);
-        }
-
-        /* ── Service Requests List ── */
+        /* ── Service Requests ── */
         .service-request-item {
             display: flex;
             align-items: center;
@@ -1170,7 +1066,21 @@
             background: #ede5e1;
         }
 
-        /* ── Toast notification ── */
+        .empty-state {
+            text-align: center;
+            padding: 28px 16px;
+            color: #b8a59c;
+        }
+        .empty-state i {
+            font-size: 36px;
+            margin-bottom: 10px;
+            color: #c9b3ab;
+        }
+        .empty-state p {
+            font-size: 14px;
+        }
+
+        /* ── Toast ── */
         .toast {
             position: fixed;
             bottom: 30px;
@@ -1199,114 +1109,35 @@
         .toast i {
             font-size: 20px;
         }
-
-        .toast.success i {
-            color: #7fc1b0;
-        }
-        .toast.error i {
-            color: #d45c4a;
-        }
-        .toast.info i {
-            color: #7fc1b0;
-        }
+        .toast.success i { color: #7fc1b0; }
+        .toast.error i { color: #d45c4a; }
+        .toast.info i { color: #7fc1b0; }
 
         /* ── Responsive ── */
         @media (max-width: 1024px) {
-            .main-grid {
-                grid-template-columns: 1fr;
-            }
-            .bottom-grid {
-                grid-template-columns: 1fr;
-            }
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-            .modal {
-                padding: 24px 20px 28px;
-                max-height: 96vh;
-            }
+            .main-grid { grid-template-columns: 1fr; }
+            .bottom-grid { grid-template-columns: 1fr; }
+            .form-grid { grid-template-columns: 1fr; }
+            .modal { padding: 24px 20px 28px; }
         }
 
         @media (max-width: 640px) {
-            body {
-                padding: 14px;
-            }
-            .header {
-                flex-direction: column;
-                align-items: stretch;
-                padding: 16px 18px;
-            }
-            .header-center {
-                justify-content: center;
-                padding: 8px 14px;
-                flex-wrap: wrap;
-            }
-            .header-right {
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-            .kpi-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .room-status-grid {
-                grid-template-columns: 1fr;
-            }
-            .card {
-                padding: 16px 14px 20px;
-            }
-            .kpi-value {
-                font-size: 24px;
-            }
-            .modal {
-                padding: 18px 14px 22px;
-                border-radius: 24px;
-            }
-            .login-card {
-                padding: 32px 24px 28px;
-            }
-            .form-actions {
-                flex-direction: column;
-            }
-            .form-actions .btn {
-                justify-content: center;
-            }
+            body { padding: 14px; }
+            .header { flex-direction: column; align-items: stretch; padding: 16px 18px; }
+            .header-center { justify-content: center; padding: 8px 14px; flex-wrap: wrap; }
+            .header-right { justify-content: center; flex-wrap: wrap; }
+            .kpi-grid { grid-template-columns: 1fr 1fr; }
+            .room-status-grid { grid-template-columns: 1fr; }
+            .card { padding: 16px 14px 20px; }
+            .kpi-value { font-size: 24px; }
+            .modal { padding: 18px 14px 22px; border-radius: 24px; }
+            .login-card { padding: 32px 24px 28px; }
+            .form-actions { flex-direction: column; }
+            .form-actions .btn { justify-content: center; }
         }
 
         @media (max-width: 420px) {
-            .kpi-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .text-muted {
-            color: #b0978d;
-        }
-        .mt-1 {
-            margin-top: 6px;
-        }
-        .flex {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .gap-2 {
-            gap: 12px;
-        }
-        .fw-400 {
-            font-weight: 400;
-        }
-        .empty-state {
-            text-align: center;
-            padding: 28px 16px;
-            color: #b8a59c;
-        }
-        .empty-state i {
-            font-size: 36px;
-            margin-bottom: 10px;
-            color: #c9b3ab;
-        }
-        .empty-state p {
-            font-size: 14px;
+            .kpi-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -1323,14 +1154,14 @@
             <form id="loginForm" class="login-form">
                 <div class="form-group">
                     <label>Username</label>
-                    <div class="input-icon-wrapper">
+                    <div class="input-wrapper">
                         <i class="fas fa-user"></i>
                         <input type="text" id="loginUsername" placeholder="Enter username" value="staff" required />
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <div class="input-icon-wrapper">
+                    <div class="input-wrapper">
                         <i class="fas fa-lock"></i>
                         <input type="password" id="loginPassword" placeholder="Enter password" value="4T2025" required />
                     </div>
@@ -1339,14 +1170,13 @@
                 <div class="login-error" id="loginError"></div>
             </form>
             <div style="text-align:center;margin-top:16px;font-size:12px;color:#b8a59c;">
-                <i class="fas fa-info-circle"></i> Demo: staff / 4T2025
+                <i class="fas fa-info-circle"></i> Demo: staff / 4T2025 (case‑insensitive username)
             </div>
         </div>
     </div>
 
     <!-- ═══ DASHBOARD APP ═══ -->
     <div id="dashboardApp">
-
         <div class="dashboard-container">
 
             <!-- ═══ HEADER ═══ -->
@@ -1365,11 +1195,11 @@
                 </div>
 
                 <div class="header-right">
-                    <div class="staff-badge" id="staffBadge">
+                    <div class="staff-badge">
                         <i class="fas fa-user-tie"></i>
                         <span id="staffName">Isabella <span class="role">· Front Desk</span></span>
                     </div>
-                    <button class="notification-btn" aria-label="Notifications" id="notificationBtn">
+                    <button class="notification-btn" id="notificationBtn" aria-label="Service requests">
                         <i class="fas fa-bell"></i>
                         <span class="badge-dot" id="serviceBadgeDot"></span>
                     </button>
@@ -1380,50 +1210,32 @@
             <!-- ═══ KPI ROW ═══ -->
             <section class="kpi-grid">
                 <div class="kpi-card accent">
-                    <div class="kpi-label">
-                        <span>Occupancy</span>
-                        <i class="fas fa-bed"></i>
-                    </div>
+                    <div class="kpi-label"><span>Occupancy</span><i class="fas fa-bed"></i></div>
                     <div class="kpi-value" id="occupancyValue">78%</div>
                     <div class="kpi-sub" id="occupancySub">142 of 182 rooms</div>
                 </div>
                 <div class="kpi-card accent2">
-                    <div class="kpi-label">
-                        <span>Available</span>
-                        <i class="fas fa-door-open"></i>
-                    </div>
+                    <div class="kpi-label"><span>Available</span><i class="fas fa-door-open"></i></div>
                     <div class="kpi-value" id="availableRooms">40</div>
                     <div class="kpi-sub">rooms ready</div>
                 </div>
                 <div class="kpi-card">
-                    <div class="kpi-label">
-                        <span>Check‑ins today</span>
-                        <i class="fas fa-sign-in-alt"></i>
-                    </div>
+                    <div class="kpi-label"><span>Check‑ins today</span><i class="fas fa-sign-in-alt"></i></div>
                     <div class="kpi-value" id="checkinsToday">26</div>
                     <div class="kpi-sub" id="checkinsSub">8 pending</div>
                 </div>
                 <div class="kpi-card accent3">
-                    <div class="kpi-label">
-                        <span>Check‑outs today</span>
-                        <i class="fas fa-sign-out-alt"></i>
-                    </div>
+                    <div class="kpi-label"><span>Check‑outs today</span><i class="fas fa-sign-out-alt"></i></div>
                     <div class="kpi-value" id="checkoutsToday">19</div>
                     <div class="kpi-sub" id="checkoutsSub">11 completed</div>
                 </div>
                 <div class="kpi-card">
-                    <div class="kpi-label">
-                        <span>Revenue (today)</span>
-                        <i class="fas fa-coin"></i>
-                    </div>
+                    <div class="kpi-label"><span>Revenue (today)</span><i class="fas fa-coin"></i></div>
                     <div class="kpi-value" id="revenueToday">$43.2k</div>
                     <div class="kpi-sub">+12% vs yesterday</div>
                 </div>
                 <div class="kpi-card">
-                    <div class="kpi-label">
-                        <span>Service Requests</span>
-                        <i class="fas fa-concierge-bell"></i>
-                    </div>
+                    <div class="kpi-label"><span>Service Requests</span><i class="fas fa-concierge-bell"></i></div>
                     <div class="kpi-value" id="serviceCount">3</div>
                     <div class="kpi-sub" id="serviceSub">2 pending</div>
                 </div>
@@ -1431,21 +1243,16 @@
 
             <!-- ═══ MAIN 2‑COL ═══ -->
             <div class="main-grid">
-                <!-- ── Reservations ── -->
+                <!-- Reservations -->
                 <section class="card">
                     <div class="card-header">
                         <h3><i class="fas fa-list-ul"></i> Today's Reservations</h3>
                         <span class="card-action"><i class="fas fa-chevron-right"></i> View all</span>
                     </div>
                     <div class="reservation-table-wrap">
-                        <table class="reservation-table" id="reservationTable">
+                        <table class="reservation-table">
                             <thead>
-                                <tr>
-                                    <th>Guest</th>
-                                    <th>Room</th>
-                                    <th>Status</th>
-                                    <th>Nights</th>
-                                </tr>
+                                <tr><th>Guest</th><th>Room</th><th>Status</th><th>Nights</th></tr>
                             </thead>
                             <tbody id="reservationBody">
                                 <tr>
@@ -1489,7 +1296,7 @@
                     </div>
                 </section>
 
-                <!-- ── Quick Actions + Room Status ── -->
+                <!-- Quick Actions + Room Status -->
                 <aside>
                     <div class="card" style="margin-bottom:20px;">
                         <div class="card-header">
@@ -1538,36 +1345,12 @@
                             <span class="card-action">6th floor</span>
                         </div>
                         <div class="room-status-grid">
-                            <div class="room-status-item">
-                                <span class="room-num">601</span>
-                                <span class="room-type">Presidential</span>
-                                <span class="room-dot occupied"></span>
-                            </div>
-                            <div class="room-status-item">
-                                <span class="room-num">602</span>
-                                <span class="room-type">Suite</span>
-                                <span class="room-dot available"></span>
-                            </div>
-                            <div class="room-status-item">
-                                <span class="room-num">603</span>
-                                <span class="room-type">Deluxe</span>
-                                <span class="room-dot cleaning"></span>
-                            </div>
-                            <div class="room-status-item">
-                                <span class="room-num">604</span>
-                                <span class="room-type">Standard</span>
-                                <span class="room-dot occupied"></span>
-                            </div>
-                            <div class="room-status-item">
-                                <span class="room-num">605</span>
-                                <span class="room-type">Deluxe</span>
-                                <span class="room-dot available"></span>
-                            </div>
-                            <div class="room-status-item">
-                                <span class="room-num">606</span>
-                                <span class="room-type">Suite</span>
-                                <span class="room-dot maintenance"></span>
-                            </div>
+                            <div class="room-status-item"><span class="room-num">601</span><span class="room-type">Presidential</span><span class="room-dot occupied"></span></div>
+                            <div class="room-status-item"><span class="room-num">602</span><span class="room-type">Suite</span><span class="room-dot available"></span></div>
+                            <div class="room-status-item"><span class="room-num">603</span><span class="room-type">Deluxe</span><span class="room-dot cleaning"></span></div>
+                            <div class="room-status-item"><span class="room-num">604</span><span class="room-type">Standard</span><span class="room-dot occupied"></span></div>
+                            <div class="room-status-item"><span class="room-num">605</span><span class="room-type">Deluxe</span><span class="room-dot available"></span></div>
+                            <div class="room-status-item"><span class="room-num">606</span><span class="room-type">Suite</span><span class="room-dot maintenance"></span></div>
                         </div>
                         <div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:#7a5f55;border-top:1px solid #f0e4df;padding-top:12px;">
                             <span><span class="room-dot available" style="display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:middle;margin-right:6px;"></span> Available</span>
@@ -1581,7 +1364,7 @@
 
             <!-- ═══ BOTTOM ROW ═══ -->
             <div class="bottom-grid">
-                <!-- Today's Timeline -->
+                <!-- Timeline -->
                 <section class="card">
                     <div class="card-header">
                         <h3><i class="fas fa-clock"></i> Today's Timeline</h3>
@@ -1631,7 +1414,7 @@
                     </div>
                 </section>
 
-                <!-- Quick Stats / Arrivals -->
+                <!-- Expected Arrivals -->
                 <section class="card">
                     <div class="card-header">
                         <h3><i class="fas fa-plane-arrival"></i> Expected Arrivals</h3>
@@ -1640,34 +1423,22 @@
                     <div id="arrivalsContainer">
                         <div style="display:flex;align-items:center;gap:14px;padding:10px 14px;background:#f9f4f2;border-radius:14px;border:1px solid #f0e4df;margin-bottom:10px;">
                             <div style="width:40px;height:40px;background:#ede5e1;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#7a5f55;font-weight:700;font-size:14px;">JW</div>
-                            <div style="flex:1;">
-                                <div style="font-weight:600;color:#2d1e18;font-size:14px;">Mr. James Whitfield</div>
-                                <div style="font-size:12px;color:#8a7166;">Suite #1002 · 4 nights</div>
-                            </div>
+                            <div style="flex:1;"><div style="font-weight:600;color:#2d1e18;font-size:14px;">Mr. James Whitfield</div><div style="font-size:12px;color:#8a7166;">Suite #1002 · 4 nights</div></div>
                             <div style="font-size:12px;font-weight:500;color:#a67b6e;background:#fff;padding:4px 14px;border-radius:40px;">16:30</div>
                         </div>
                         <div style="display:flex;align-items:center;gap:14px;padding:10px 14px;background:#f9f4f2;border-radius:14px;border:1px solid #f0e4df;margin-bottom:10px;">
                             <div style="width:40px;height:40px;background:#ede5e1;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#7a5f55;font-weight:700;font-size:14px;">LM</div>
-                            <div style="flex:1;">
-                                <div style="font-weight:600;color:#2d1e18;font-size:14px;">Ms. Laura Moreau</div>
-                                <div style="font-size:12px;color:#8a7166;">Deluxe #0815 · 2 nights</div>
-                            </div>
+                            <div style="flex:1;"><div style="font-weight:600;color:#2d1e18;font-size:14px;">Ms. Laura Moreau</div><div style="font-size:12px;color:#8a7166;">Deluxe #0815 · 2 nights</div></div>
                             <div style="font-size:12px;font-weight:500;color:#a67b6e;background:#fff;padding:4px 14px;border-radius:40px;">17:10</div>
                         </div>
                         <div style="display:flex;align-items:center;gap:14px;padding:10px 14px;background:#f9f4f2;border-radius:14px;border:1px solid #f0e4df;margin-bottom:10px;">
                             <div style="width:40px;height:40px;background:#ede5e1;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#7a5f55;font-weight:700;font-size:14px;">RT</div>
-                            <div style="flex:1;">
-                                <div style="font-weight:600;color:#2d1e18;font-size:14px;">Mr. &amp; Mrs. Tanaka</div>
-                                <div style="font-size:12px;color:#8a7166;">Presidential #1601 · 7 nights</div>
-                            </div>
+                            <div style="flex:1;"><div style="font-weight:600;color:#2d1e18;font-size:14px;">Mr. &amp; Mrs. Tanaka</div><div style="font-size:12px;color:#8a7166;">Presidential #1601 · 7 nights</div></div>
                             <div style="font-size:12px;font-weight:500;color:#a67b6e;background:#fff;padding:4px 14px;border-radius:40px;">18:45</div>
                         </div>
                         <div style="display:flex;align-items:center;gap:14px;padding:10px 14px;background:#f9f4f2;border-radius:14px;border:1px solid #f0e4df;">
                             <div style="width:40px;height:40px;background:#ede5e1;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#7a5f55;font-weight:700;font-size:14px;">DG</div>
-                            <div style="flex:1;">
-                                <div style="font-weight:600;color:#2d1e18;font-size:14px;">Dr. David Grant</div>
-                                <div style="font-size:12px;color:#8a7166;">Standard #0703 · 1 night</div>
-                            </div>
+                            <div style="flex:1;"><div style="font-weight:600;color:#2d1e18;font-size:14px;">Dr. David Grant</div><div style="font-size:12px;color:#8a7166;">Standard #0703 · 1 night</div></div>
                             <div style="font-size:12px;font-weight:500;color:#a67b6e;background:#fff;padding:4px 14px;border-radius:40px;">19:20</div>
                         </div>
                     </div>
@@ -1685,70 +1456,45 @@
     </div>
 
     <!-- ════════════════════════════════════════════ -->
-    <!-- ═══ MODAL: CHECK-IN ═══ -->
+    <!-- ═══ MODALS (Check-in, Check-out, Booking, Service) ═══ -->
     <!-- ════════════════════════════════════════════ -->
+
+    <!-- CHECK-IN MODAL -->
     <div class="modal-overlay" id="checkinModal">
         <div class="modal">
             <div class="modal-header">
                 <h2><i class="fas fa-user-plus"></i> Guest Check‑in</h2>
                 <button class="modal-close" id="closeCheckinBtn"><i class="fas fa-times"></i></button>
             </div>
-            <form id="checkinForm" novalidate>
+            <form id="checkinForm">
                 <div class="form-grid">
                     <div class="form-group full-width">
                         <label><span class="required">*</span> Full Name <i class="fas fa-user"></i></label>
                         <input type="text" id="ciName" placeholder="e.g. Mr. John Doe" required />
                     </div>
-                    <div class="form-group">
-                        <label>Email <i class="fas fa-envelope"></i></label>
-                        <input type="email" id="ciEmail" placeholder="john@example.com" />
+                    <div class="form-group"><label>Email</label><input type="email" id="ciEmail" placeholder="john@example.com" /></div>
+                    <div class="form-group"><label><span class="required">*</span> Phone</label><input type="tel" id="ciPhone" placeholder="+1 234 567 8900" required /></div>
+                    <div class="form-group"><label><span class="required">*</span> ID Type</label>
+                        <select id="ciIdType" required><option value="">Select</option><option value="passport">Passport</option><option value="national_id">National ID</option><option value="drivers_license">Driver's License</option><option value="residence_permit">Residence Permit</option></select>
                     </div>
-                    <div class="form-group">
-                        <label><span class="required">*</span> Phone <i class="fas fa-phone"></i></label>
-                        <input type="tel" id="ciPhone" placeholder="+1 234 567 8900" required />
-                    </div>
-                    <div class="form-group">
-                        <label><span class="required">*</span> ID Type <i class="fas fa-id-card"></i></label>
-                        <select id="ciIdType" required>
-                            <option value="">Select</option>
-                            <option value="passport">Passport</option>
-                            <option value="national_id">National ID</option>
-                            <option value="drivers_license">Driver's License</option>
-                            <option value="residence_permit">Residence Permit</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label><span class="required">*</span> ID Number <i class="fas fa-hashtag"></i></label>
+                    <div class="form-group"><label><span class="required">*</span> ID Number</label>
                         <input type="text" id="ciIdNumber" placeholder="Enter ID number" required />
                         <div class="validation-feedback" id="ciIdValidation"></div>
                     </div>
                     <div class="form-group full-width">
-                        <label><span class="required">*</span> Upload ID <i class="fas fa-cloud-upload-alt"></i></label>
+                        <label><span class="required">*</span> Upload ID</label>
                         <div class="file-upload-wrapper">
                             <input type="file" id="ciIdUpload" accept=".jpg,.jpeg,.png,.pdf" required />
-                            <div class="file-label">
-                                <i class="fas fa-file-upload"></i>
-                                <span>Click or drag (JPG, PNG, PDF)</span>
-                            </div>
+                            <div class="file-label"><i class="fas fa-file-upload"></i><span>Click or drag (JPG, PNG, PDF)</span></div>
                         </div>
                         <div class="file-name" id="ciFileName"></div>
                     </div>
-                    <div class="form-group full-width">
-                        <label>Address <i class="fas fa-home"></i></label>
-                        <input type="text" id="ciAddress" placeholder="Street, City, Country" />
-                    </div>
-                    <div class="form-group">
-                        <label><span class="required">*</span> Check‑in <i class="fas fa-calendar-check"></i></label>
-                        <input type="date" id="ciCheckinDate" required />
-                    </div>
-                    <div class="form-group">
-                        <label><span class="required">*</span> Check‑out <i class="fas fa-calendar-times"></i></label>
-                        <input type="date" id="ciCheckoutDate" required />
-                    </div>
-                    <div class="form-group">
-                        <label><span class="required">*</span> Room <i class="fas fa-door-open"></i></label>
+                    <div class="form-group full-width"><label>Address</label><input type="text" id="ciAddress" placeholder="Street, City, Country" /></div>
+                    <div class="form-group"><label><span class="required">*</span> Check‑in</label><input type="date" id="ciCheckinDate" required /></div>
+                    <div class="form-group"><label><span class="required">*</span> Check‑out</label><input type="date" id="ciCheckoutDate" required /></div>
+                    <div class="form-group"><label><span class="required">*</span> Room</label>
                         <select id="ciRoom" required>
-                            <option value="">Select room</option>
+                            <option value="">Select</option>
                             <option value="601">#601 · Presidential · $980/night</option>
                             <option value="602">#602 · Suite · $540/night</option>
                             <option value="603">#603 · Deluxe · $380/night</option>
@@ -1759,35 +1505,14 @@
                             <option value="608">#608 · Deluxe · $380/night</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label><span class="required">*</span> Guests <i class="fas fa-users"></i></label>
-                        <select id="ciGuests" required>
-                            <option value="1">1</option>
-                            <option value="2" selected>2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5+</option>
-                        </select>
+                    <div class="form-group"><label><span class="required">*</span> Guests</label>
+                        <select id="ciGuests" required><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option><option value="4">4</option><option value="5">5+</option></select>
                     </div>
-                    <div class="form-group">
-                        <label><span class="required">*</span> Payment <i class="fas fa-credit-card"></i></label>
-                        <select id="ciPayment" required>
-                            <option value="">Select</option>
-                            <option value="credit">Credit Card</option>
-                            <option value="debit">Debit Card</option>
-                            <option value="cash">Cash</option>
-                            <option value="bank_transfer">Bank Transfer</option>
-                            <option value="company">Company Account</option>
-                        </select>
+                    <div class="form-group"><label><span class="required">*</span> Payment</label>
+                        <select id="ciPayment" required><option value="">Select</option><option value="credit">Credit Card</option><option value="debit">Debit Card</option><option value="cash">Cash</option><option value="bank_transfer">Bank Transfer</option><option value="company">Company Account</option></select>
                     </div>
-                    <div class="form-group">
-                        <label>Deposit <i class="fas fa-money-bill-wave"></i></label>
-                        <input type="number" id="ciDeposit" placeholder="0.00" step="0.01" min="0" />
-                    </div>
-                    <div class="form-group full-width">
-                        <label>Special Requests <i class="fas fa-comment-dots"></i></label>
-                        <textarea id="ciRequests" placeholder="e.g. extra pillows, early check-in" rows="2"></textarea>
-                    </div>
+                    <div class="form-group"><label>Deposit</label><input type="number" id="ciDeposit" placeholder="0.00" step="0.01" min="0" /></div>
+                    <div class="form-group full-width"><label>Special Requests</label><textarea id="ciRequests" placeholder="e.g. extra pillows" rows="2"></textarea></div>
                     <div class="guest-history-box" id="ciHistoryBox">
                         <div class="history-title"><i class="fas fa-history"></i> Previous Stay History</div>
                         <div id="ciHistoryContent">
@@ -1805,51 +1530,28 @@
         </div>
     </div>
 
-    <!-- ════════════════════════════════════════════ -->
-    <!-- ═══ MODAL: CHECK-OUT ═══ -->
-    <!-- ════════════════════════════════════════════ -->
+    <!-- CHECK-OUT MODAL -->
     <div class="modal-overlay" id="checkoutModal">
         <div class="modal">
             <div class="modal-header">
                 <h2><i class="fas fa-user-minus"></i> Process Departure</h2>
                 <button class="modal-close" id="closeCheckoutBtn"><i class="fas fa-times"></i></button>
             </div>
-            <form id="checkoutForm" novalidate>
+            <form id="checkoutForm">
                 <div class="form-grid">
                     <div class="form-group full-width">
                         <label><span class="required">*</span> Guest Name <i class="fas fa-user"></i></label>
                         <input type="text" id="coName" placeholder="Enter guest name to check out" required />
                         <div style="font-size:12px;color:#8a7166;margin-top:4px;">Start typing to search active guests</div>
                     </div>
-                    <div class="form-group">
-                        <label>Room <i class="fas fa-door-open"></i></label>
-                        <input type="text" id="coRoom" placeholder="Room number" readonly />
+                    <div class="form-group"><label>Room</label><input type="text" id="coRoom" readonly /></div>
+                    <div class="form-group"><label>Check‑in Date</label><input type="text" id="coCheckinDate" readonly /></div>
+                    <div class="form-group"><label>Nights Stayed</label><input type="text" id="coNights" readonly /></div>
+                    <div class="form-group"><label>Total Bill</label><input type="text" id="coTotalBill" placeholder="$0.00" readonly /></div>
+                    <div class="form-group full-width"><label>Payment Method</label>
+                        <select id="coPayment"><option value="credit">Credit Card</option><option value="debit">Debit Card</option><option value="cash">Cash</option><option value="bank_transfer">Bank Transfer</option></select>
                     </div>
-                    <div class="form-group">
-                        <label>Check‑in Date</label>
-                        <input type="text" id="coCheckinDate" readonly />
-                    </div>
-                    <div class="form-group">
-                        <label>Nights Stayed</label>
-                        <input type="text" id="coNights" readonly />
-                    </div>
-                    <div class="form-group">
-                        <label>Total Bill <i class="fas fa-dollar-sign"></i></label>
-                        <input type="text" id="coTotalBill" placeholder="$0.00" readonly />
-                    </div>
-                    <div class="form-group full-width">
-                        <label>Payment Method <i class="fas fa-credit-card"></i></label>
-                        <select id="coPayment">
-                            <option value="credit">Credit Card</option>
-                            <option value="debit">Debit Card</option>
-                            <option value="cash">Cash</option>
-                            <option value="bank_transfer">Bank Transfer</option>
-                        </select>
-                    </div>
-                    <div class="form-group full-width">
-                        <label>Feedback / Notes <i class="fas fa-comment"></i></label>
-                        <textarea id="coFeedback" placeholder="Any feedback from guest or special notes" rows="2"></textarea>
-                    </div>
+                    <div class="form-group full-width"><label>Feedback / Notes</label><textarea id="coFeedback" placeholder="Any feedback from guest" rows="2"></textarea></div>
                     <div class="form-actions">
                         <button type="button" class="btn btn-secondary" id="cancelCheckoutBtn">Cancel</button>
                         <button type="submit" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i> Complete Check‑out</button>
@@ -1859,41 +1561,23 @@
         </div>
     </div>
 
-    <!-- ════════════════════════════════════════════ -->
-    <!-- ═══ MODAL: BOOK ROOM ═══ -->
-    <!-- ════════════════════════════════════════════ -->
+    <!-- BOOK ROOM MODAL -->
     <div class="modal-overlay" id="bookingModal">
         <div class="modal">
             <div class="modal-header">
                 <h2><i class="fas fa-calendar-plus"></i> Book a Room</h2>
                 <button class="modal-close" id="closeBookingBtn"><i class="fas fa-times"></i></button>
             </div>
-            <form id="bookingForm" novalidate>
+            <form id="bookingForm">
                 <div class="form-grid">
-                    <div class="form-group full-width">
-                        <label><span class="required">*</span> Guest Name <i class="fas fa-user"></i></label>
-                        <input type="text" id="bkName" placeholder="Full name" required />
-                    </div>
-                    <div class="form-group">
-                        <label><span class="required">*</span> Email <i class="fas fa-envelope"></i></label>
-                        <input type="email" id="bkEmail" placeholder="guest@example.com" required />
-                    </div>
-                    <div class="form-group">
-                        <label><span class="required">*</span> Phone <i class="fas fa-phone"></i></label>
-                        <input type="tel" id="bkPhone" placeholder="+1 234 567 8900" required />
-                    </div>
-                    <div class="form-group">
-                        <label><span class="required">*</span> Check‑in <i class="fas fa-calendar-check"></i></label>
-                        <input type="date" id="bkCheckin" required />
-                    </div>
-                    <div class="form-group">
-                        <label><span class="required">*</span> Check‑out <i class="fas fa-calendar-times"></i></label>
-                        <input type="date" id="bkCheckout" required />
-                    </div>
-                    <div class="form-group">
-                        <label><span class="required">*</span> Room <i class="fas fa-door-open"></i></label>
+                    <div class="form-group full-width"><label><span class="required">*</span> Guest Name</label><input type="text" id="bkName" placeholder="Full name" required /></div>
+                    <div class="form-group"><label><span class="required">*</span> Email</label><input type="email" id="bkEmail" placeholder="guest@example.com" required /></div>
+                    <div class="form-group"><label><span class="required">*</span> Phone</label><input type="tel" id="bkPhone" placeholder="+1 234 567 8900" required /></div>
+                    <div class="form-group"><label><span class="required">*</span> Check‑in</label><input type="date" id="bkCheckin" required /></div>
+                    <div class="form-group"><label><span class="required">*</span> Check‑out</label><input type="date" id="bkCheckout" required /></div>
+                    <div class="form-group"><label><span class="required">*</span> Room</label>
                         <select id="bkRoom" required>
-                            <option value="">Select room</option>
+                            <option value="">Select</option>
                             <option value="601">#601 · Presidential · $980/night</option>
                             <option value="602">#602 · Suite · $540/night</option>
                             <option value="603">#603 · Deluxe · $380/night</option>
@@ -1904,20 +1588,10 @@
                             <option value="608">#608 · Deluxe · $380/night</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label><span class="required">*</span> Guests <i class="fas fa-users"></i></label>
-                        <select id="bkGuests" required>
-                            <option value="1">1</option>
-                            <option value="2" selected>2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5+</option>
-                        </select>
+                    <div class="form-group"><label><span class="required">*</span> Guests</label>
+                        <select id="bkGuests" required><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option><option value="4">4</option><option value="5">5+</option></select>
                     </div>
-                    <div class="form-group full-width">
-                        <label>Special Requests <i class="fas fa-comment-dots"></i></label>
-                        <textarea id="bkRequests" placeholder="Any special requirements" rows="2"></textarea>
-                    </div>
+                    <div class="form-group full-width"><label>Special Requests</label><textarea id="bkRequests" placeholder="Any special requirements" rows="2"></textarea></div>
                     <div class="form-actions">
                         <button type="button" class="btn btn-secondary" id="cancelBookingBtn">Cancel</button>
                         <button type="submit" class="btn btn-primary"><i class="fas fa-check-circle"></i> Create Booking</button>
@@ -1927,9 +1601,7 @@
         </div>
     </div>
 
-    <!-- ════════════════════════════════════════════ -->
-    <!-- ═══ MODAL: SERVICE REQUESTS ═══ -->
-    <!-- ════════════════════════════════════════════ -->
+    <!-- SERVICE REQUESTS MODAL -->
     <div class="modal-overlay" id="serviceModal">
         <div class="modal" style="max-width:700px;">
             <div class="modal-header">
@@ -1939,15 +1611,11 @@
             <div style="margin-bottom:16px;display:flex;gap:12px;flex-wrap:wrap;">
                 <button class="btn btn-secondary" id="addServiceBtn" style="padding:8px 20px;font-size:13px;"><i class="fas fa-plus"></i> New Request</button>
             </div>
-            <div id="serviceList">
-                <!-- Rendered by JS -->
-            </div>
+            <div id="serviceList"></div>
         </div>
     </div>
 
-    <!-- ════════════════════════════════════════════ -->
-    <!-- ═══ MODAL: ADD SERVICE REQUEST ═══ -->
-    <!-- ════════════════════════════════════════════ -->
+    <!-- ADD SERVICE REQUEST MODAL -->
     <div class="modal-overlay" id="addServiceModal">
         <div class="modal" style="max-width:520px;">
             <div class="modal-header">
@@ -1956,29 +1624,12 @@
             </div>
             <form id="addServiceForm">
                 <div class="form-grid" style="grid-template-columns:1fr;">
-                    <div class="form-group full-width">
-                        <label><span class="required">*</span> Guest Name <i class="fas fa-user"></i></label>
-                        <input type="text" id="srGuestName" placeholder="Guest name" required />
+                    <div class="form-group full-width"><label><span class="required">*</span> Guest Name</label><input type="text" id="srGuestName" placeholder="Guest name" required /></div>
+                    <div class="form-group full-width"><label><span class="required">*</span> Room</label><input type="text" id="srRoom" placeholder="Room number" required /></div>
+                    <div class="form-group full-width"><label><span class="required">*</span> Request Type</label>
+                        <select id="srType" required><option value="">Select</option><option value="room_service">Room Service</option><option value="housekeeping">Housekeeping</option><option value="maintenance">Maintenance</option><option value="concierge">Concierge</option><option value="other">Other</option></select>
                     </div>
-                    <div class="form-group full-width">
-                        <label><span class="required">*</span> Room <i class="fas fa-door-open"></i></label>
-                        <input type="text" id="srRoom" placeholder="Room number" required />
-                    </div>
-                    <div class="form-group full-width">
-                        <label><span class="required">*</span> Request Type <i class="fas fa-tag"></i></label>
-                        <select id="srType" required>
-                            <option value="">Select type</option>
-                            <option value="room_service">Room Service</option>
-                            <option value="housekeeping">Housekeeping</option>
-                            <option value="maintenance">Maintenance</option>
-                            <option value="concierge">Concierge</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group full-width">
-                        <label><span class="required">*</span> Description <i class="fas fa-comment"></i></label>
-                        <textarea id="srDescription" placeholder="Describe the request" rows="3" required></textarea>
-                    </div>
+                    <div class="form-group full-width"><label><span class="required">*</span> Description</label><textarea id="srDescription" placeholder="Describe the request" rows="3" required></textarea></div>
                     <div class="form-actions">
                         <button type="button" class="btn btn-secondary" id="cancelAddServiceBtn">Cancel</button>
                         <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Add Request</button>
@@ -1996,699 +1647,603 @@
 
     <script>
         // ─────────────────────────────────────────────────────────────
-        // 1. LOGIN SYSTEM
+        // 0. Wait for DOM to be ready
         // ─────────────────────────────────────────────────────────────
-        const loginScreen = document.getElementById('loginScreen');
-        const dashboardApp = document.getElementById('dashboardApp');
-        const loginForm = document.getElementById('loginForm');
-        const loginError = document.getElementById('loginError');
+        document.addEventListener('DOMContentLoaded', function() {
 
-        // Hardcoded staff credentials
-        const STAFF_CREDENTIALS = {
-            'staff': '4T2025',
-            'reception': 'reception123',
-            'frontdesk': 'front4T'
-        };
+            console.log('🚀 DOM ready – initializing 4T Hotel system');
 
-        let currentStaff = 'Isabella';
+            // ─────────────────────────────────────────────────────────────
+            // 1. LOGIN SYSTEM
+            // ─────────────────────────────────────────────────────────────
+            const loginScreen = document.getElementById('loginScreen');
+            const dashboardApp = document.getElementById('dashboardApp');
+            const loginForm = document.getElementById('loginForm');
+            const loginError = document.getElementById('loginError');
 
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const username = document.getElementById('loginUsername').value.trim();
-            const password = document.getElementById('loginPassword').value.trim();
-
-            if (!username || !password) {
-                loginError.textContent = 'Please enter both username and password.';
-                return;
-            }
-
-            // Check credentials
-            if (STAFF_CREDENTIALS[username] && STAFF_CREDENTIALS[username] === password) {
-                loginError.textContent = '';
-                // Set staff name
-                const names = {
-                    'staff': 'Isabella',
-                    'reception': 'Michael',
-                    'frontdesk': 'Sarah'
-                };
-                currentStaff = names[username] || username.charAt(0).toUpperCase() + username.slice(1);
-                document.getElementById('staffName').innerHTML =
-                    `${currentStaff} <span class="role">· Front Desk</span>`;
-                document.getElementById('footerStaff').textContent = currentStaff;
-
-                // Show dashboard
-                loginScreen.classList.add('hidden');
-                dashboardApp.classList.add('active');
-                showToast(`Welcome back, ${currentStaff}!`, 'success');
-
-                // Update service badge
-                updateServiceBadge();
-            } else {
-                loginError.textContent = 'Invalid username or password. Please try again.';
-                // Shake animation
-                loginForm.querySelector('.login-btn').style.animation = 'shake 0.4s ease';
-                setTimeout(() => {
-                    loginForm.querySelector('.login-btn').style.animation = '';
-                }, 400);
-            }
-        });
-
-        // Add shake keyframe
-        const styleSheet = document.createElement('style');
-        styleSheet.textContent = `
-            @keyframes shake {
-                0%, 100% { transform: translateX(0); }
-                20% { transform: translateX(-8px); }
-                40% { transform: translateX(8px); }
-                60% { transform: translateX(-6px); }
-                80% { transform: translateX(6px); }
-            }
-        `;
-        document.head.appendChild(styleSheet);
-
-        // ── Logout ──
-        document.getElementById('logoutBtn').addEventListener('click', function() {
-            if (confirm('Are you sure you want to logout?')) {
-                dashboardApp.classList.remove('active');
-                loginScreen.classList.remove('hidden');
-                document.getElementById('loginUsername').value = 'staff';
-                document.getElementById('loginPassword').value = '4T2025';
-                loginError.textContent = '';
-                showToast('Logged out successfully.', 'info');
-            }
-        });
-
-        // ─────────────────────────────────────────────────────────────
-        // 2. LIVE CLOCK
-        // ─────────────────────────────────────────────────────────────
-        function updateClock() {
-            const now = new Date();
-            const optionsDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('dateDisplay').textContent = now.toLocaleDateString('en-US', optionsDate);
-            document.getElementById('timeDisplay').textContent = now.toLocaleTimeString('en-US', {
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            });
-        }
-        updateClock();
-        setInterval(updateClock, 1000);
-
-        // ─────────────────────────────────────────────────────────────
-        // 3. TOAST SYSTEM
-        // ─────────────────────────────────────────────────────────────
-        function showToast(message, type = 'success') {
-            const toast = document.getElementById('toast');
-            const toastMsg = document.getElementById('toastMessage');
-            const icon = toast.querySelector('i');
-
-            toastMsg.textContent = message;
-            icon.className = type === 'success' ? 'fas fa-check-circle' :
-                type === 'error' ? 'fas fa-exclamation-circle' :
-                'fas fa-info-circle';
-            toast.className = 'toast ' + type;
-
-            void toast.offsetWidth;
-            toast.classList.add('show');
-
-            clearTimeout(toast._timeout);
-            toast._timeout = setTimeout(() => toast.classList.remove('show'), 4000);
-        }
-
-        // ─────────────────────────────────────────────────────────────
-        // 4. MODAL HELPERS
-        // ─────────────────────────────────────────────────────────────
-        function openModal(modalId) {
-            const el = document.getElementById(modalId);
-            if (el) {
-                el.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-        }
-
-        function closeModal(modalId) {
-            const el = document.getElementById(modalId);
-            if (el) {
-                el.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        }
-
-        // ─────────────────────────────────────────────────────────────
-        // 5. CHECK-IN MODAL
-        // ─────────────────────────────────────────────────────────────
-        document.getElementById('openCheckinBtn').addEventListener('click', () => openModal('checkinModal'));
-        document.getElementById('closeCheckinBtn').addEventListener('click', () => closeModal('checkinModal'));
-        document.getElementById('cancelCheckinBtn').addEventListener('click', () => closeModal('checkinModal'));
-
-        // Set default dates for check-in
-        (function setCheckinDefaults() {
-            const today = new Date();
-            const yyyy = today.getFullYear();
-            const mm = String(today.getMonth() + 1).padStart(2, '0');
-            const dd = String(today.getDate()).padStart(2, '0');
-            const todayStr = `${yyyy}-${mm}-${dd}`;
-            document.getElementById('ciCheckinDate').value = todayStr;
-            const out = new Date(today);
-            out.setDate(out.getDate() + 3);
-            document.getElementById('ciCheckoutDate').value =
-                `${out.getFullYear()}-${String(out.getMonth()+1).padStart(2,'0')}-${String(out.getDate()).padStart(2,'0')}`;
-        })();
-
-        // ID validation for check-in
-        const ciIdInput = document.getElementById('ciIdNumber');
-        const ciIdType = document.getElementById('ciIdType');
-        const ciIdValidation = document.getElementById('ciIdValidation');
-
-        function validateCiId() {
-            const type = ciIdType.value;
-            const num = ciIdInput.value.trim();
-            if (!num) { ciIdValidation.textContent = '';
-                ciIdValidation.className = 'validation-feedback'; return; }
-            const result = validateIdNumber(type, num);
-            ciIdValidation.textContent = result.message;
-            ciIdValidation.className = 'validation-feedback ' + (result.valid ? 'valid' : 'invalid');
-            return result.valid;
-        }
-        ciIdInput.addEventListener('input', validateCiId);
-        ciIdType.addEventListener('change', validateCiId);
-
-        function validateIdNumber(type, number) {
-            const clean = number.trim().toUpperCase();
-            if (!clean) return { valid: false, message: 'ID number is required.' };
-            const patterns = {
-                passport: /^[A-Z]{2}[0-9]{7}$/,
-                national_id: /^[0-9]{6,12}$/,
-                drivers_license: /^[A-Z]{2}[0-9A-Z]{8,10}$/,
-                residence_permit: /^[A-Z0-9]{8,15}$/
+            // Credentials – usernames are case‑insensitive
+            const STAFF_CREDENTIALS = {
+                'staff': '4T2025',
+                'reception': 'reception123',
+                'frontdesk': 'front4T'
             };
-            const pattern = patterns[type] || /^[A-Z0-9]{6,15}$/;
-            if (pattern.test(clean)) return { valid: true, message: '✓ Valid format' };
-            const hints = {
-                passport: ' (e.g. AB1234567)',
-                national_id: ' (6-12 digits)',
-                drivers_license: ' (e.g. CA9A8B7C6D)',
-                residence_permit: ' (8-15 alphanumeric)'
+
+            const STAFF_NAMES = {
+                'staff': 'Isabella',
+                'reception': 'Michael',
+                'frontdesk': 'Sarah'
             };
-            return { valid: false, message: '✗ Invalid format' + (hints[type] || ' (6-15 alphanumeric)') };
-        }
 
-        // File upload display
-        document.getElementById('ciIdUpload').addEventListener('change', function() {
-            const file = this.files[0];
-            const display = document.getElementById('ciFileName');
-            if (file) {
-                display.textContent = `📎 ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
-                display.className = 'file-name show';
-            } else {
-                display.textContent = '';
-                display.className = 'file-name';
-            }
-        });
+            let currentStaff = 'Isabella';
 
-        // Guest history lookup for check-in
-        const guestHistoryDB = {
-            'john': { lastVisit: '2026-05-12', total: 3, favRoom: '#1204 (Suite)' },
-            'elena': { lastVisit: '2026-04-28', total: 2, favRoom: '#0812 (Deluxe)' },
-            'amara': { lastVisit: '2026-06-01', total: 1, favRoom: '#0507 (Standard)' },
-            'chen': { lastVisit: '2026-05-20', total: 5, favRoom: '#1603 (Presidential)' },
-            'sofia': { lastVisit: '2026-06-10', total: 4, favRoom: '#0915 (Deluxe)' },
-            'liam': { lastVisit: '2026-05-05', total: 2, favRoom: '#0702 (Standard)' },
-            'james': { lastVisit: '2026-05-30', total: 3, favRoom: '#1002 (Suite)' },
-            'laura': { lastVisit: '2026-06-15', total: 2, favRoom: '#0815 (Deluxe)' },
-            'tanaka': { lastVisit: '2026-04-10', total: 6, favRoom: '#1601 (Presidential)' },
-            'david': { lastVisit: '2026-05-25', total: 1, favRoom: '#0703 (Standard)' },
-        };
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const username = document.getElementById('loginUsername').value.trim().toLowerCase();
+                const password = document.getElementById('loginPassword').value.trim();
 
-        function lookupHistory(name) {
-            const key = name.toLowerCase().trim().split(' ')[0] || '';
-            for (const [dbKey, data] of Object.entries(guestHistoryDB)) {
-                if (key.includes(dbKey) || dbKey.includes(key)) return data;
-            }
-            return null;
-        }
+                console.log(`🔑 Login attempt: username="${username}"`);
 
-        const ciNameInput = document.getElementById('ciName');
-        const ciHistoryBox = document.getElementById('ciHistoryBox');
-        let ciHistoryTimeout = null;
+                if (!username || !password) {
+                    loginError.textContent = 'Please enter both username and password.';
+                    return;
+                }
 
-        ciNameInput.addEventListener('input', function() {
-            clearTimeout(ciHistoryTimeout);
-            const name = this.value.trim();
-            if (name.length < 2) { ciHistoryBox.classList.remove('show'); return; }
-            ciHistoryTimeout = setTimeout(() => {
-                const h = lookupHistory(name);
-                if (h) {
-                    document.getElementById('ciLastVisit').textContent = h.lastVisit || '—';
-                    document.getElementById('ciTotalStays').textContent = h.total || '—';
-                    document.getElementById('ciFavRoom').textContent = h.favRoom || '—';
-                    ciHistoryBox.classList.add('show');
+                // Check credentials
+                if (STAFF_CREDENTIALS[username] && STAFF_CREDENTIALS[username] === password) {
+                    loginError.textContent = '';
+                    currentStaff = STAFF_NAMES[username] || username.charAt(0).toUpperCase() + username.slice(1);
+                    document.getElementById('staffName').innerHTML =
+                        `${currentStaff} <span class="role">· Front Desk</span>`;
+                    document.getElementById('footerStaff').textContent = currentStaff;
+
+                    // Show dashboard
+                    loginScreen.classList.add('hidden');
+                    dashboardApp.classList.add('active');
+                    showToast(`Welcome back, ${currentStaff}!`, 'success');
+
+                    // Update service badge
+                    updateServiceBadge();
+                    console.log('✅ Login successful – dashboard active');
                 } else {
-                    ciHistoryBox.classList.remove('show');
-                }
-            }, 400);
-        });
-
-        // Submit check-in
-        document.getElementById('checkinForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const name = document.getElementById('ciName').value.trim();
-            const phone = document.getElementById('ciPhone').value.trim();
-            const idType = document.getElementById('ciIdType').value;
-            const idNum = document.getElementById('ciIdNumber').value.trim();
-            const idFile = document.getElementById('ciIdUpload').files[0];
-            const checkin = document.getElementById('ciCheckinDate').value;
-            const checkout = document.getElementById('ciCheckoutDate').value;
-            const room = document.getElementById('ciRoom').value;
-
-            if (!name) { showToast('Please enter guest name.', 'error'); return; }
-            if (!phone) { showToast('Please enter phone number.', 'error'); return; }
-            if (!idType) { showToast('Please select ID type.', 'error'); return; }
-            if (!idNum) { showToast('Please enter ID number.', 'error'); return; }
-            if (!validateCiId()) { showToast('Please enter a valid ID number.', 'error'); return; }
-            if (!idFile) { showToast('Please upload ID document.', 'error'); return; }
-            if (!checkin || !checkout) { showToast('Please select dates.', 'error'); return; }
-            if (new Date(checkout) <= new Date(checkin)) { showToast('Check-out must be after check-in.', 'error');
-                return; }
-            if (!room) { showToast('Please select a room.', 'error'); return; }
-
-            const roomLabel = document.querySelector(`#ciRoom option[value="${room}"]`)?.textContent || room;
-            const nights = Math.ceil((new Date(checkout) - new Date(checkin)) / (1000 * 60 * 60 * 24));
-
-            // Add to table
-            const tbody = document.getElementById('reservationBody');
-            const row = document.createElement('tr');
-            const now = new Date();
-            const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-            row.innerHTML = `
-                <td><span class="guest-name">${name}</span></td>
-                <td><span class="guest-room">${roomLabel}</span></td>
-                <td><span class="status-badge checked-in">Checked in</span></td>
-                <td>${nights}</td>
-            `;
-            tbody.prepend(row);
-
-            // Update counters
-            const counter = document.getElementById('checkinsToday');
-            counter.textContent = parseInt(counter.textContent) + 1;
-
-            // Timeline
-            const timeline = document.getElementById('timelineContainer');
-            const item = document.createElement('div');
-            item.className = 'timeline-item';
-            item.innerHTML = `
-                <div class="timeline-icon"><i class="fas fa-user-check"></i></div>
-                <div class="timeline-time">${timeStr}</div>
-                <div class="timeline-content">
-                    <div class="tl-title">${name} checked in</div>
-                    <div class="tl-desc">${roomLabel} · ${nights} night${nights>1?'s':''}</div>
-                </div>
-            `;
-            timeline.prepend(item);
-
-            // Update occupancy
-            updateOccupancy();
-
-            showToast(`✅ ${name} checked in to ${roomLabel}!`, 'success');
-            setTimeout(() => closeModal('checkinModal'), 600);
-            this.reset();
-            document.getElementById('ciFileName').textContent = '';
-            document.getElementById('ciFileName').className = 'file-name';
-            ciHistoryBox.classList.remove('show');
-        });
-
-        // ─────────────────────────────────────────────────────────────
-        // 6. CHECK-OUT MODAL
-        // ─────────────────────────────────────────────────────────────
-        document.getElementById('openCheckoutBtn').addEventListener('click', () => openModal('checkoutModal'));
-        document.getElementById('closeCheckoutBtn').addEventListener('click', () => closeModal('checkoutModal'));
-        document.getElementById('cancelCheckoutBtn').addEventListener('click', () => closeModal('checkoutModal'));
-
-        // Guest search for check-out - find checked-in guests
-        const coNameInput = document.getElementById('coName');
-        let coGuests = [];
-
-        function getCheckedInGuests() {
-            const rows = document.querySelectorAll('#reservationBody tr');
-            const guests = [];
-            rows.forEach(row => {
-                const nameEl = row.querySelector('.guest-name');
-                const roomEl = row.querySelector('.guest-room');
-                const statusEl = row.querySelector('.status-badge');
-                if (nameEl && roomEl && statusEl && statusEl.textContent.trim() === 'Checked in') {
-                    guests.push({
-                        name: nameEl.textContent.trim(),
-                        room: roomEl.textContent.trim(),
-                        nights: row.querySelectorAll('td')[3]?.textContent.trim() || '?'
-                    });
+                    loginError.textContent = 'Invalid username or password. Please try again.';
+                    const btn = loginForm.querySelector('.login-btn');
+                    btn.style.animation = 'shake 0.4s ease';
+                    setTimeout(() => btn.style.animation = '', 400);
+                    console.warn('❌ Login failed – invalid credentials');
                 }
             });
-            return guests;
-        }
 
-        coNameInput.addEventListener('input', function() {
-            const val = this.value.trim().toLowerCase();
-            const checkedIn = getCheckedInGuests();
-            const match = checkedIn.find(g => g.name.toLowerCase().includes(val) || g.room.includes(val));
-            if (match && val.length > 1) {
-                document.getElementById('coRoom').value = match.room;
-                document.getElementById('coCheckinDate').value = '2026-06-21'; // demo
-                document.getElementById('coNights').value = match.nights;
-                const nights = parseInt(match.nights) || 2;
-                const bill = (nights * 220 + 45).toFixed(2);
-                document.getElementById('coTotalBill').value = `$${bill}`;
-            } else if (val.length === 0) {
-                document.getElementById('coRoom').value = '';
-                document.getElementById('coCheckinDate').value = '';
-                document.getElementById('coNights').value = '';
-                document.getElementById('coTotalBill').value = '';
+            // Logout
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                if (confirm('Are you sure you want to logout?')) {
+                    dashboardApp.classList.remove('active');
+                    loginScreen.classList.remove('hidden');
+                    document.getElementById('loginUsername').value = 'staff';
+                    document.getElementById('loginPassword').value = '4T2025';
+                    loginError.textContent = '';
+                    showToast('Logged out successfully.', 'info');
+                    console.log('🔐 Logged out');
+                }
+            });
+
+            // ─────────────────────────────────────────────────────────────
+            // 2. LIVE CLOCK
+            // ─────────────────────────────────────────────────────────────
+            function updateClock() {
+                const now = new Date();
+                document.getElementById('dateDisplay').textContent = now.toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                document.getElementById('timeDisplay').textContent = now.toLocaleTimeString('en-US', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
             }
-        });
+            updateClock();
+            setInterval(updateClock, 1000);
 
-        // Submit check-out
-        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const name = document.getElementById('coName').value.trim();
-            if (!name) { showToast('Please enter guest name.', 'error'); return; }
+            // ─────────────────────────────────────────────────────────────
+            // 3. TOAST
+            // ─────────────────────────────────────────────────────────────
+            function showToast(message, type = 'success') {
+                const toast = document.getElementById('toast');
+                const toastMsg = document.getElementById('toastMessage');
+                const icon = toast.querySelector('i');
+                toastMsg.textContent = message;
+                icon.className = type === 'success' ? 'fas fa-check-circle' :
+                    type === 'error' ? 'fas fa-exclamation-circle' : 'fas fa-info-circle';
+                toast.className = 'toast ' + type;
+                void toast.offsetWidth;
+                toast.classList.add('show');
+                clearTimeout(toast._timeout);
+                toast._timeout = setTimeout(() => toast.classList.remove('show'), 4000);
+            }
 
-            // Find and remove from table
-            const rows = document.querySelectorAll('#reservationBody tr');
-            let found = false;
-            rows.forEach(row => {
-                const nameEl = row.querySelector('.guest-name');
-                if (nameEl && nameEl.textContent.trim().toLowerCase() === name.toLowerCase()) {
-                    const statusEl = row.querySelector('.status-badge');
-                    if (statusEl && statusEl.textContent.trim() === 'Checked in') {
-                        statusEl.textContent = 'Checked out';
-                        statusEl.className = 'status-badge checked-out';
-                        found = true;
+            // ─────────────────────────────────────────────────────────────
+            // 4. MODAL HELPERS
+            // ─────────────────────────────────────────────────────────────
+            function openModal(id) {
+                const el = document.getElementById(id);
+                if (el) { el.classList.add('active');
+                    document.body.style.overflow = 'hidden'; }
+            }
+
+            function closeModal(id) {
+                const el = document.getElementById(id);
+                if (el) { el.classList.remove('active');
+                    document.body.style.overflow = ''; }
+            }
+
+            // ─────────────────────────────────────────────────────────────
+            // 5. CHECK-IN
+            // ─────────────────────────────────────────────────────────────
+            document.getElementById('openCheckinBtn').addEventListener('click', () => openModal('checkinModal'));
+            document.getElementById('closeCheckinBtn').addEventListener('click', () => closeModal('checkinModal'));
+            document.getElementById('cancelCheckinBtn').addEventListener('click', () => closeModal('checkinModal'));
+
+            // Set default dates
+            (function() {
+                const today = new Date();
+                const y = today.getFullYear(),
+                    m = String(today.getMonth() + 1).padStart(2, '0'),
+                    d = String(today.getDate()).padStart(2, '0');
+                document.getElementById('ciCheckinDate').value = `${y}-${m}-${d}`;
+                const out = new Date(today);
+                out.setDate(out.getDate() + 3);
+                document.getElementById('ciCheckoutDate').value =
+                    `${out.getFullYear()}-${String(out.getMonth()+1).padStart(2,'0')}-${String(out.getDate()).padStart(2,'0')}`;
+            })();
+
+            // ID validation
+            const ciIdInput = document.getElementById('ciIdNumber');
+            const ciIdType = document.getElementById('ciIdType');
+            const ciIdValidation = document.getElementById('ciIdValidation');
+
+            function validateCiId() {
+                const type = ciIdType.value,
+                    num = ciIdInput.value.trim();
+                if (!num) { ciIdValidation.textContent = '';
+                    ciIdValidation.className = 'validation-feedback'; return false; }
+                const result = validateIdNumber(type, num);
+                ciIdValidation.textContent = result.message;
+                ciIdValidation.className = 'validation-feedback ' + (result.valid ? 'valid' : 'invalid');
+                return result.valid;
+            }
+            ciIdInput.addEventListener('input', validateCiId);
+            ciIdType.addEventListener('change', validateCiId);
+
+            function validateIdNumber(type, number) {
+                const clean = number.trim().toUpperCase();
+                if (!clean) return { valid: false, message: 'ID number is required.' };
+                const patterns = {
+                    passport: /^[A-Z]{2}[0-9]{7}$/,
+                    national_id: /^[0-9]{6,12}$/,
+                    drivers_license: /^[A-Z]{2}[0-9A-Z]{8,10}$/,
+                    residence_permit: /^[A-Z0-9]{8,15}$/
+                };
+                const pattern = patterns[type] || /^[A-Z0-9]{6,15}$/;
+                if (pattern.test(clean)) return { valid: true, message: '✓ Valid format' };
+                const hints = { passport: ' (e.g. AB1234567)', national_id: ' (6-12 digits)',
+                    drivers_license: ' (e.g. CA9A8B7C6D)', residence_permit: ' (8-15 alphanumeric)' };
+                return { valid: false, message: '✗ Invalid format' + (hints[type] || ' (6-15 alphanumeric)') };
+            }
+
+            // File upload
+            document.getElementById('ciIdUpload').addEventListener('change', function() {
+                const file = this.files[0];
+                const display = document.getElementById('ciFileName');
+                if (file) {
+                    display.textContent = `📎 ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+                    display.className = 'file-name show';
+                } else {
+                    display.textContent = '';
+                    display.className = 'file-name';
+                }
+            });
+
+            // Guest history
+            const guestHistoryDB = {
+                'john': { lastVisit: '2026-05-12', total: 3, favRoom: '#1204 (Suite)' },
+                'elena': { lastVisit: '2026-04-28', total: 2, favRoom: '#0812 (Deluxe)' },
+                'amara': { lastVisit: '2026-06-01', total: 1, favRoom: '#0507 (Standard)' },
+                'chen': { lastVisit: '2026-05-20', total: 5, favRoom: '#1603 (Presidential)' },
+                'sofia': { lastVisit: '2026-06-10', total: 4, favRoom: '#0915 (Deluxe)' },
+                'liam': { lastVisit: '2026-05-05', total: 2, favRoom: '#0702 (Standard)' },
+                'james': { lastVisit: '2026-05-30', total: 3, favRoom: '#1002 (Suite)' },
+                'laura': { lastVisit: '2026-06-15', total: 2, favRoom: '#0815 (Deluxe)' },
+                'tanaka': { lastVisit: '2026-04-10', total: 6, favRoom: '#1601 (Presidential)' },
+                'david': { lastVisit: '2026-05-25', total: 1, favRoom: '#0703 (Standard)' },
+            };
+
+            function lookupHistory(name) {
+                const key = name.toLowerCase().trim().split(' ')[0] || '';
+                for (const [dbKey, data] of Object.entries(guestHistoryDB)) {
+                    if (key.includes(dbKey) || dbKey.includes(key)) return data;
+                }
+                return null;
+            }
+
+            const ciNameInput = document.getElementById('ciName');
+            const ciHistoryBox = document.getElementById('ciHistoryBox');
+            let ciHistoryTimeout;
+
+            ciNameInput.addEventListener('input', function() {
+                clearTimeout(ciHistoryTimeout);
+                const name = this.value.trim();
+                if (name.length < 2) { ciHistoryBox.classList.remove('show'); return; }
+                ciHistoryTimeout = setTimeout(() => {
+                    const h = lookupHistory(name);
+                    if (h) {
+                        document.getElementById('ciLastVisit').textContent = h.lastVisit || '—';
+                        document.getElementById('ciTotalStays').textContent = h.total || '—';
+                        document.getElementById('ciFavRoom').textContent = h.favRoom || '—';
+                        ciHistoryBox.classList.add('show');
+                    } else {
+                        ciHistoryBox.classList.remove('show');
                     }
-                }
+                }, 400);
             });
 
-            if (!found) {
-                // Try partial match
-                const checkedIn = getCheckedInGuests();
-                const match = checkedIn.find(g => g.name.toLowerCase().includes(name.toLowerCase()));
-                if (match) {
-                    const rows2 = document.querySelectorAll('#reservationBody tr');
-                    rows2.forEach(row => {
-                        const nameEl = row.querySelector('.guest-name');
-                        if (nameEl && nameEl.textContent.trim() === match.name) {
-                            const statusEl = row.querySelector('.status-badge');
-                            if (statusEl && statusEl.textContent.trim() === 'Checked in') {
-                                statusEl.textContent = 'Checked out';
-                                statusEl.className = 'status-badge checked-out';
-                                found = true;
-                            }
-                        }
-                    });
-                }
-            }
+            // Submit check-in
+            document.getElementById('checkinForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('ciName').value.trim();
+                const phone = document.getElementById('ciPhone').value.trim();
+                const idType = document.getElementById('ciIdType').value;
+                const idNum = document.getElementById('ciIdNumber').value.trim();
+                const idFile = document.getElementById('ciIdUpload').files[0];
+                const checkin = document.getElementById('ciCheckinDate').value;
+                const checkout = document.getElementById('ciCheckoutDate').value;
+                const room = document.getElementById('ciRoom').value;
 
-            if (found) {
-                // Update counters
-                const coCounter = document.getElementById('checkoutsToday');
-                coCounter.textContent = parseInt(coCounter.textContent) + 1;
+                if (!name) { showToast('Please enter guest name.', 'error'); return; }
+                if (!phone) { showToast('Please enter phone number.', 'error'); return; }
+                if (!idType) { showToast('Please select ID type.', 'error'); return; }
+                if (!idNum) { showToast('Please enter ID number.', 'error'); return; }
+                if (!validateCiId()) { showToast('Please enter a valid ID number.', 'error'); return; }
+                if (!idFile) { showToast('Please upload ID document.', 'error'); return; }
+                if (!checkin || !checkout) { showToast('Please select dates.', 'error'); return; }
+                if (new Date(checkout) <= new Date(checkin)) { showToast('Check-out must be after check-in.',
+                    'error'); return; }
+                if (!room) { showToast('Please select a room.', 'error'); return; }
 
-                // Timeline
-                const timeline = document.getElementById('timelineContainer');
+                const roomLabel = document.querySelector(`#ciRoom option[value="${room}"]`)?.textContent || room;
+                const nights = Math.ceil((new Date(checkout) - new Date(checkin)) / (1000 * 60 * 60 * 24));
+                const tbody = document.getElementById('reservationBody');
+                const row = document.createElement('tr');
                 const now = new Date();
                 const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+                row.innerHTML =
+                    `<td><span class="guest-name">${name}</span></td><td><span class="guest-room">${roomLabel}</span></td><td><span class="status-badge checked-in">Checked in</span></td><td>${nights}</td>`;
+                tbody.prepend(row);
+
+                const counter = document.getElementById('checkinsToday');
+                counter.textContent = parseInt(counter.textContent) + 1;
+
+                const timeline = document.getElementById('timelineContainer');
                 const item = document.createElement('div');
                 item.className = 'timeline-item';
-                item.innerHTML = `
-                    <div class="timeline-icon"><i class="fas fa-user-minus"></i></div>
-                    <div class="timeline-time">${timeStr}</div>
-                    <div class="timeline-content">
-                        <div class="tl-title">${name} checked out</div>
-                        <div class="tl-desc">${document.getElementById('coRoom').value || 'Room'} · Departure processed</div>
-                    </div>
-                `;
+                item.innerHTML =
+                    `<div class="timeline-icon"><i class="fas fa-user-check"></i></div><div class="timeline-time">${timeStr}</div><div class="timeline-content"><div class="tl-title">${name} checked in</div><div class="tl-desc">${roomLabel} · ${nights} night${nights>1?'s':''}</div></div>`;
                 timeline.prepend(item);
 
                 updateOccupancy();
-                showToast(`✅ ${name} checked out successfully.`, 'success');
-                setTimeout(() => closeModal('checkoutModal'), 500);
+                showToast(`✅ ${name} checked in to ${roomLabel}!`, 'success');
+                setTimeout(() => closeModal('checkinModal'), 500);
                 this.reset();
-                document.getElementById('coRoom').value = '';
-                document.getElementById('coCheckinDate').value = '';
-                document.getElementById('coNights').value = '';
-                document.getElementById('coTotalBill').value = '';
-            } else {
-                showToast(`❌ Guest "${name}" not found or already checked out.`, 'error');
-            }
-        });
+                document.getElementById('ciFileName').textContent = '';
+                document.getElementById('ciFileName').className = 'file-name';
+                ciHistoryBox.classList.remove('show');
+            });
 
-        // ─────────────────────────────────────────────────────────────
-        // 7. BOOK ROOM MODAL
-        // ─────────────────────────────────────────────────────────────
-        document.getElementById('openBookingBtn').addEventListener('click', () => openModal('bookingModal'));
-        document.getElementById('closeBookingBtn').addEventListener('click', () => closeModal('bookingModal'));
-        document.getElementById('cancelBookingBtn').addEventListener('click', () => closeModal('bookingModal'));
+            // ─────────────────────────────────────────────────────────────
+            // 6. CHECK-OUT
+            // ─────────────────────────────────────────────────────────────
+            document.getElementById('openCheckoutBtn').addEventListener('click', () => openModal('checkoutModal'));
+            document.getElementById('closeCheckoutBtn').addEventListener('click', () => closeModal('checkoutModal'));
+            document.getElementById('cancelCheckoutBtn').addEventListener('click', () => closeModal('checkoutModal'));
 
-        (function setBookingDefaults() {
-            const today = new Date();
-            const y = today.getFullYear(),
-                m = String(today.getMonth() + 1).padStart(2, '0'),
-                d = String(today.getDate()).padStart(2, '0');
-            document.getElementById('bkCheckin').value = `${y}-${m}-${d}`;
-            const out = new Date(today);
-            out.setDate(out.getDate() + 2);
-            document.getElementById('bkCheckout').value =
-                `${out.getFullYear()}-${String(out.getMonth()+1).padStart(2,'0')}-${String(out.getDate()).padStart(2,'0')}`;
-        })();
-
-        document.getElementById('bookingForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const name = document.getElementById('bkName').value.trim();
-            const email = document.getElementById('bkEmail').value.trim();
-            const phone = document.getElementById('bkPhone').value.trim();
-            const checkin = document.getElementById('bkCheckin').value;
-            const checkout = document.getElementById('bkCheckout').value;
-            const room = document.getElementById('bkRoom').value;
-
-            if (!name || !email || !phone || !checkin || !checkout || !room) {
-                showToast('Please fill in all required fields.', 'error');
-                return;
-            }
-            if (new Date(checkout) <= new Date(checkin)) {
-                showToast('Check-out must be after check-in.', 'error');
-                return;
+            function getCheckedInGuests() {
+                const rows = document.querySelectorAll('#reservationBody tr');
+                const guests = [];
+                rows.forEach(row => {
+                    const nameEl = row.querySelector('.guest-name');
+                    const roomEl = row.querySelector('.guest-room');
+                    const statusEl = row.querySelector('.status-badge');
+                    if (nameEl && roomEl && statusEl && statusEl.textContent.trim() === 'Checked in') {
+                        guests.push({ name: nameEl.textContent.trim(), room: roomEl.textContent.trim(),
+                            nights: row.querySelectorAll('td')[3]?.textContent.trim() || '?' });
+                    }
+                });
+                return guests;
             }
 
-            const roomLabel = document.querySelector(`#bkRoom option[value="${room}"]`)?.textContent || room;
-            const nights = Math.ceil((new Date(checkout) - new Date(checkin)) / (1000 * 60 * 60 * 24));
+            const coNameInput = document.getElementById('coName');
+            coNameInput.addEventListener('input', function() {
+                const val = this.value.trim().toLowerCase();
+                const checkedIn = getCheckedInGuests();
+                const match = checkedIn.find(g => g.name.toLowerCase().includes(val) || g.room.includes(val));
+                if (match && val.length > 1) {
+                    document.getElementById('coRoom').value = match.room;
+                    document.getElementById('coCheckinDate').value = '2026-06-21';
+                    document.getElementById('coNights').value = match.nights;
+                    const nights = parseInt(match.nights) || 2;
+                    const bill = (nights * 220 + 45).toFixed(2);
+                    document.getElementById('coTotalBill').value = `$${bill}`;
+                } else if (val.length === 0) {
+                    ['coRoom', 'coCheckinDate', 'coNights', 'coTotalBill'].forEach(id => document.getElementById(id)
+                        .value = '');
+                }
+            });
 
-            // Add to table
-            const tbody = document.getElementById('reservationBody');
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td><span class="guest-name">${name}</span></td>
-                <td><span class="guest-room">${roomLabel}</span></td>
-                <td><span class="status-badge confirmed">Confirmed</span></td>
-                <td>${nights}</td>
-            `;
-            tbody.prepend(row);
+            document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('coName').value.trim();
+                if (!name) { showToast('Please enter guest name.', 'error'); return; }
 
-            // Timeline
-            const timeline = document.getElementById('timelineContainer');
-            const now = new Date();
-            const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-            const item = document.createElement('div');
-            item.className = 'timeline-item';
-            item.innerHTML = `
-                <div class="timeline-icon"><i class="fas fa-calendar-plus"></i></div>
-                <div class="timeline-time">${timeStr}</div>
-                <div class="timeline-content">
-                    <div class="tl-title">New booking: ${name}</div>
-                    <div class="tl-desc">${roomLabel} · ${nights} night${nights>1?'s':''}</div>
-                </div>
-            `;
-            timeline.prepend(item);
+                let found = false;
+                const rows = document.querySelectorAll('#reservationBody tr');
+                rows.forEach(row => {
+                    const nameEl = row.querySelector('.guest-name');
+                    if (nameEl && nameEl.textContent.trim().toLowerCase() === name.toLowerCase()) {
+                        const statusEl = row.querySelector('.status-badge');
+                        if (statusEl && statusEl.textContent.trim() === 'Checked in') {
+                            statusEl.textContent = 'Checked out';
+                            statusEl.className = 'status-badge checked-out';
+                            found = true;
+                        }
+                    }
+                });
 
-            showToast(`✅ Booking created for ${name} (${roomLabel})`, 'success');
-            setTimeout(() => closeModal('bookingModal'), 500);
-            this.reset();
-            // Reset dates
-            const today = new Date();
-            const y = today.getFullYear(),
-                m = String(today.getMonth() + 1).padStart(2, '0'),
-                d = String(today.getDate()).padStart(2, '0');
-            document.getElementById('bkCheckin').value = `${y}-${m}-${d}`;
-            const out = new Date(today);
-            out.setDate(out.getDate() + 2);
-            document.getElementById('bkCheckout').value =
-                `${out.getFullYear()}-${String(out.getMonth()+1).padStart(2,'0')}-${String(out.getDate()).padStart(2,'0')}`;
-        });
+                if (!found) {
+                    const checkedIn = getCheckedInGuests();
+                    const match = checkedIn.find(g => g.name.toLowerCase().includes(name.toLowerCase()));
+                    if (match) {
+                        rows.forEach(row => {
+                            const nameEl = row.querySelector('.guest-name');
+                            if (nameEl && nameEl.textContent.trim() === match.name) {
+                                const statusEl = row.querySelector('.status-badge');
+                                if (statusEl && statusEl.textContent.trim() === 'Checked in') {
+                                    statusEl.textContent = 'Checked out';
+                                    statusEl.className = 'status-badge checked-out';
+                                    found = true;
+                                }
+                            }
+                        });
+                    }
+                }
 
-        // ─────────────────────────────────────────────────────────────
-        // 8. SERVICE REQUESTS
-        // ─────────────────────────────────────────────────────────────
-        let serviceRequests = [
-            { id: 1, guest: 'Mr. Pierce', room: '#1204', type: 'room_service', desc: 'Breakfast for 2, 8:00 AM',
-                status: 'pending' },
-            { id: 2, guest: 'Ms. Rossi', room: '#0812', type: 'housekeeping', desc: 'Extra pillows and towels',
-                status: 'in-progress' },
-            { id: 3, guest: 'Dr. Singh', room: '#0507', type: 'maintenance', desc: 'AC not cooling properly',
-                status: 'pending' },
-        ];
-        let nextServiceId = 4;
+                if (found) {
+                    const coCounter = document.getElementById('checkoutsToday');
+                    coCounter.textContent = parseInt(coCounter.textContent) + 1;
+                    const now = new Date();
+                    const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+                    const timeline = document.getElementById('timelineContainer');
+                    const item = document.createElement('div');
+                    item.className = 'timeline-item';
+                    item.innerHTML =
+                        `<div class="timeline-icon"><i class="fas fa-user-minus"></i></div><div class="timeline-time">${timeStr}</div><div class="timeline-content"><div class="tl-title">${name} checked out</div><div class="tl-desc">${document.getElementById('coRoom').value || 'Room'} · Departure processed</div></div>`;
+                    timeline.prepend(item);
+                    updateOccupancy();
+                    showToast(`✅ ${name} checked out successfully.`, 'success');
+                    setTimeout(() => closeModal('checkoutModal'), 500);
+                    this.reset();
+                    ['coRoom', 'coCheckinDate', 'coNights', 'coTotalBill'].forEach(id => document.getElementById(id)
+                        .value = '');
+                } else {
+                    showToast(`❌ Guest "${name}" not found or already checked out.`, 'error');
+                }
+            });
 
-        function renderServices() {
-            const container = document.getElementById('serviceList');
-            if (serviceRequests.length === 0) {
-                container.innerHTML =
-                    `<div class="empty-state"><i class="fas fa-concierge-bell"></i><p>No service requests</p></div>`;
-                return;
-            }
-            container.innerHTML = serviceRequests.map(sr => `
-                <div class="service-request-item" data-id="${sr.id}">
+            // ─────────────────────────────────────────────────────────────
+            // 7. BOOK ROOM
+            // ─────────────────────────────────────────────────────────────
+            document.getElementById('openBookingBtn').addEventListener('click', () => openModal('bookingModal'));
+            document.getElementById('closeBookingBtn').addEventListener('click', () => closeModal('bookingModal'));
+            document.getElementById('cancelBookingBtn').addEventListener('click', () => closeModal('bookingModal'));
+
+            (function() {
+                const today = new Date();
+                const y = today.getFullYear(),
+                    m = String(today.getMonth() + 1).padStart(2, '0'),
+                    d = String(today.getDate()).padStart(2, '0');
+                document.getElementById('bkCheckin').value = `${y}-${m}-${d}`;
+                const out = new Date(today);
+                out.setDate(out.getDate() + 2);
+                document.getElementById('bkCheckout').value =
+                    `${out.getFullYear()}-${String(out.getMonth()+1).padStart(2,'0')}-${String(out.getDate()).padStart(2,'0')}`;
+            })();
+
+            document.getElementById('bookingForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('bkName').value.trim();
+                const email = document.getElementById('bkEmail').value.trim();
+                const phone = document.getElementById('bkPhone').value.trim();
+                const checkin = document.getElementById('bkCheckin').value;
+                const checkout = document.getElementById('bkCheckout').value;
+                const room = document.getElementById('bkRoom').value;
+
+                if (!name || !email || !phone || !checkin || !checkout || !room) {
+                    showToast('Please fill in all required fields.', 'error');
+                    return;
+                }
+                if (new Date(checkout) <= new Date(checkin)) {
+                    showToast('Check-out must be after check-in.', 'error');
+                    return;
+                }
+
+                const roomLabel = document.querySelector(`#bkRoom option[value="${room}"]`)?.textContent || room;
+                const nights = Math.ceil((new Date(checkout) - new Date(checkin)) / (1000 * 60 * 60 * 24));
+                const tbody = document.getElementById('reservationBody');
+                const row = document.createElement('tr');
+                row.innerHTML =
+                    `<td><span class="guest-name">${name}</span></td><td><span class="guest-room">${roomLabel}</span></td><td><span class="status-badge confirmed">Confirmed</span></td><td>${nights}</td>`;
+                tbody.prepend(row);
+
+                const now = new Date();
+                const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+                const timeline = document.getElementById('timelineContainer');
+                const item = document.createElement('div');
+                item.className = 'timeline-item';
+                item.innerHTML =
+                    `<div class="timeline-icon"><i class="fas fa-calendar-plus"></i></div><div class="timeline-time">${timeStr}</div><div class="timeline-content"><div class="tl-title">New booking: ${name}</div><div class="tl-desc">${roomLabel} · ${nights} night${nights>1?'s':''}</div></div>`;
+                timeline.prepend(item);
+
+                showToast(`✅ Booking created for ${name}`, 'success');
+                setTimeout(() => closeModal('bookingModal'), 500);
+                this.reset();
+                const today = new Date();
+                const y = today.getFullYear(),
+                    m = String(today.getMonth() + 1).padStart(2, '0'),
+                    d = String(today.getDate()).padStart(2, '0');
+                document.getElementById('bkCheckin').value = `${y}-${m}-${d}`;
+                const out = new Date(today);
+                out.setDate(out.getDate() + 2);
+                document.getElementById('bkCheckout').value =
+                    `${out.getFullYear()}-${String(out.getMonth()+1).padStart(2,'0')}-${String(out.getDate()).padStart(2,'0')}`;
+            });
+
+            // ─────────────────────────────────────────────────────────────
+            // 8. SERVICE REQUESTS
+            // ─────────────────────────────────────────────────────────────
+            let serviceRequests = [
+                { id: 1, guest: 'Mr. Pierce', room: '#1204', type: 'room_service', desc: 'Breakfast for 2, 8:00 AM',
+                    status: 'pending' },
+                { id: 2, guest: 'Ms. Rossi', room: '#0812', type: 'housekeeping', desc: 'Extra pillows and towels',
+                    status: 'in-progress' },
+                { id: 3, guest: 'Dr. Singh', room: '#0507', type: 'maintenance', desc: 'AC not cooling properly',
+                    status: 'pending' },
+            ];
+            let nextServiceId = 4;
+
+            function renderServices() {
+                const container = document.getElementById('serviceList');
+                if (serviceRequests.length === 0) {
+                    container.innerHTML =
+                        `<div class="empty-state"><i class="fas fa-concierge-bell"></i><p>No service requests</p></div>`;
+                    return;
+                }
+                container.innerHTML = serviceRequests.map(sr =>
+                    `<div class="service-request-item" data-id="${sr.id}">
                     <div class="sr-icon"><i class="fas fa-${sr.type === 'room_service' ? 'utensils' : sr.type === 'housekeeping' ? 'broom' : sr.type === 'maintenance' ? 'wrench' : 'bell'}"></i></div>
-                    <div class="sr-content">
-                        <div class="sr-title">${sr.guest} · ${sr.room}</div>
-                        <div class="sr-desc">${sr.desc}</div>
-                    </div>
+                    <div class="sr-content"><div class="sr-title">${sr.guest} · ${sr.room}</div><div class="sr-desc">${sr.desc}</div></div>
                     <span class="sr-status ${sr.status}">${sr.status.replace('-',' ')}</span>
                     <div class="sr-actions">
                         ${sr.status === 'pending' ? `<button onclick="updateServiceStatus(${sr.id},'in-progress')" title="Start"><i class="fas fa-play"></i></button>` : ''}
                         ${sr.status === 'in-progress' ? `<button onclick="updateServiceStatus(${sr.id},'completed')" title="Complete"><i class="fas fa-check"></i></button>` : ''}
                         <button onclick="deleteService(${sr.id})" title="Remove"><i class="fas fa-trash-alt"></i></button>
                     </div>
-                </div>
-            `).join('');
-            updateServiceBadge();
-        }
-
-        function updateServiceBadge() {
-            const pending = serviceRequests.filter(s => s.status === 'pending').length;
-            const dot = document.getElementById('serviceBadgeDot');
-            const count = document.getElementById('serviceCount');
-            const sub = document.getElementById('serviceSub');
-            if (pending > 0) {
-                dot.style.display = 'block';
-                document.getElementById('serviceDesc').textContent = `${pending} pending request${pending>1?'s':''}`;
-            } else {
-                dot.style.display = 'none';
-                document.getElementById('serviceDesc').textContent = 'No pending requests';
+                </div>`
+                ).join('');
+                updateServiceBadge();
             }
-            count.textContent = serviceRequests.length;
-            const inProg = serviceRequests.filter(s => s.status === 'in-progress').length;
-            sub.textContent = `${pending} pending, ${inProg} in progress`;
-        }
 
-        window.updateServiceStatus = function(id, status) {
-            const sr = serviceRequests.find(s => s.id === id);
-            if (sr) {
-                sr.status = status;
+            function updateServiceBadge() {
+                const pending = serviceRequests.filter(s => s.status === 'pending').length;
+                const dot = document.getElementById('serviceBadgeDot');
+                const count = document.getElementById('serviceCount');
+                const sub = document.getElementById('serviceSub');
+                if (pending > 0) {
+                    dot.style.display = 'block';
+                    document.getElementById('serviceDesc').textContent = `${pending} pending request${pending>1?'s':''}`;
+                } else {
+                    dot.style.display = 'none';
+                    document.getElementById('serviceDesc').textContent = 'No pending requests';
+                }
+                count.textContent = serviceRequests.length;
+                const inProg = serviceRequests.filter(s => s.status === 'in-progress').length;
+                sub.textContent = `${pending} pending, ${inProg} in progress`;
+            }
+
+            window.updateServiceStatus = function(id, status) {
+                const sr = serviceRequests.find(s => s.id === id);
+                if (sr) { sr.status = status;
+                    renderServices();
+                    showToast(`Service request updated to ${status.replace('-',' ')}.`, 'info'); }
+            };
+
+            window.deleteService = function(id) {
+                if (confirm('Remove this service request?')) {
+                    serviceRequests = serviceRequests.filter(s => s.id !== id);
+                    renderServices();
+                    showToast('Service request removed.', 'info');
+                }
+            };
+
+            document.getElementById('openServiceBtn').addEventListener('click', () => { renderServices();
+                openModal('serviceModal'); });
+            document.getElementById('closeServiceBtn').addEventListener('click', () => closeModal('serviceModal'));
+            document.getElementById('notificationBtn').addEventListener('click', () => { renderServices();
+                openModal('serviceModal'); });
+
+            document.getElementById('addServiceBtn').addEventListener('click', () => {
+                closeModal('serviceModal');
+                setTimeout(() => openModal('addServiceModal'), 300);
+            });
+            document.getElementById('closeAddServiceBtn').addEventListener('click', () => closeModal('addServiceModal'));
+            document.getElementById('cancelAddServiceBtn').addEventListener('click', () => closeModal('addServiceModal'));
+
+            document.getElementById('addServiceForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const guest = document.getElementById('srGuestName').value.trim();
+                const room = document.getElementById('srRoom').value.trim();
+                const type = document.getElementById('srType').value;
+                const desc = document.getElementById('srDescription').value.trim();
+                if (!guest || !room || !type || !desc) { showToast('Please fill in all fields.', 'error');
+                    return; }
+                serviceRequests.push({ id: nextServiceId++, guest, room, type, desc, status: 'pending' });
                 renderServices();
-                showToast(`Service request updated to ${status.replace('-',' ')}.`, 'info');
-            }
-        };
-
-        window.deleteService = function(id) {
-            if (confirm('Remove this service request?')) {
-                serviceRequests = serviceRequests.filter(s => s.id !== id);
-                renderServices();
-                showToast('Service request removed.', 'info');
-            }
-        };
-
-        // Open service modal
-        document.getElementById('openServiceBtn').addEventListener('click', () => {
-            renderServices();
-            openModal('serviceModal');
-        });
-        document.getElementById('closeServiceBtn').addEventListener('click', () => closeModal('serviceModal'));
-
-        // Add service request
-        document.getElementById('addServiceBtn').addEventListener('click', () => {
-            closeModal('serviceModal');
-            setTimeout(() => openModal('addServiceModal'), 300);
-        });
-        document.getElementById('closeAddServiceBtn').addEventListener('click', () => closeModal('addServiceModal'));
-        document.getElementById('cancelAddServiceBtn').addEventListener('click', () => closeModal('addServiceModal'));
-
-        document.getElementById('addServiceForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const guest = document.getElementById('srGuestName').value.trim();
-            const room = document.getElementById('srRoom').value.trim();
-            const type = document.getElementById('srType').value;
-            const desc = document.getElementById('srDescription').value.trim();
-
-            if (!guest || !room || !type || !desc) {
-                showToast('Please fill in all fields.', 'error');
-                return;
-            }
-
-            serviceRequests.push({
-                id: nextServiceId++,
-                guest,
-                room,
-                type,
-                desc,
-                status: 'pending'
+                showToast(`✅ Service request added for ${guest}`, 'success');
+                closeModal('addServiceModal');
+                this.reset();
+                setTimeout(() => openModal('serviceModal'), 300);
             });
 
-            renderServices();
-            showToast(`✅ Service request added for ${guest}`, 'success');
-            closeModal('addServiceModal');
-            this.reset();
-            // Reopen service modal
-            setTimeout(() => openModal('serviceModal'), 300);
-        });
+            // ─────────────────────────────────────────────────────────────
+            // 9. UPDATE OCCUPANCY
+            // ─────────────────────────────────────────────────────────────
+            function updateOccupancy() {
+                const checkedIn = document.querySelectorAll('#reservationBody tr .status-badge.checked-in').length;
+                const totalRooms = 182;
+                const pct = Math.round((checkedIn / totalRooms) * 100);
+                document.getElementById('occupancyValue').textContent = pct + '%';
+                document.getElementById('occupancySub').textContent = `${checkedIn} of ${totalRooms} rooms`;
+                document.getElementById('availableRooms').textContent = totalRooms - checkedIn;
+            }
 
-        // Notification bell shows service modal
-        document.getElementById('notificationBtn').addEventListener('click', () => {
-            renderServices();
-            openModal('serviceModal');
-        });
+            // ─────────────────────────────────────────────────────────────
+            // 10. CLICK OUTSIDE & ESC TO CLOSE MODALS
+            // ─────────────────────────────────────────────────────────────
+            document.querySelectorAll('.modal-overlay').forEach(overlay => {
+                overlay.addEventListener('click', function(e) {
+                    if (e.target === this) { this.classList.remove('active');
+                        document.body.style.overflow = ''; }
+                });
+            });
 
-        // ─────────────────────────────────────────────────────────────
-        // 9. UPDATE OCCUPANCY
-        // ─────────────────────────────────────────────────────────────
-        function updateOccupancy() {
-            const checkedIn = document.querySelectorAll('#reservationBody tr .status-badge.checked-in').length;
-            const totalRooms = 182;
-            const pct = Math.round((checkedIn / totalRooms) * 100);
-            document.getElementById('occupancyValue').textContent = pct + '%';
-            document.getElementById('occupancySub').textContent = `${checkedIn} of ${totalRooms} rooms`;
-            document.getElementById('availableRooms').textContent = totalRooms - checkedIn;
-        }
-
-        // ─────────────────────────────────────────────────────────────
-        // 10. CLICK OUTSIDE MODAL CLOSE
-        // ─────────────────────────────────────────────────────────────
-        document.querySelectorAll('.modal-overlay').forEach(overlay => {
-            overlay.addEventListener('click', function(e) {
-                if (e.target === this) {
-                    this.classList.remove('active');
-                    document.body.style.overflow = '';
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    document.querySelectorAll('.modal-overlay.active').forEach(m => {
+                        m.classList.remove('active');
+                        document.body.style.overflow = '';
+                    });
                 }
             });
-        });
 
-        // ─────────────────────────────────────────────────────────────
-        // 11. ESC KEY CLOSE MODAL
-        // ─────────────────────────────────────────────────────────────
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                document.querySelectorAll('.modal-overlay.active').forEach(m => {
-                    m.classList.remove('active');
-                    document.body.style.overflow = '';
-                });
-            }
-        });
+            // ─────────────────────────────────────────────────────────────
+            // 11. INIT
+            // ─────────────────────────────────────────────────────────────
+            renderServices();
+            updateOccupancy();
+            console.log('🏨 4T Luxury Hotel · Front Desk System ready');
+            console.log('👤 Staff: ' + currentStaff);
+            console.log('📋 Service requests: ' + serviceRequests.length);
 
-        // ─────────────────────────────────────────────────────────────
-        // 12. INIT
-        // ─────────────────────────────────────────────────────────────
-        renderServices();
-        updateOccupancy();
-
-        console.log('🏨 4T Luxury Hotel · Front Desk System loaded');
-        console.log('👤 Staff: ' + currentStaff);
-        console.log('📋 Service requests: ' + serviceRequests.length);
+        }); // end DOMContentLoaded
     </script>
 
 </body>
