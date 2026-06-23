@@ -117,11 +117,10 @@
             const password = document.getElementById('password').value.trim();
             const errorDiv = document.getElementById('errorMessage');
 
-            // Hardcoded credentials (demo only – not secure for production)
             if (username === 'admin' && password === '4T2025') {
                 alert('✅ Login successful! Redirecting to dashboard...');
-                // Uncomment this line when you create dashboard.html
-                // window.location.href = 'dashboard.html';
+                // ✅ REDIRECT TO DASHBOARD (UNCOMMENTED)
+                window.location.href = 'dashboard.html';
             } else {
                 errorDiv.classList.add('show');
                 setTimeout(() => {
